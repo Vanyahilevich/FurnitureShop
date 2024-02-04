@@ -1,7 +1,6 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import {Link} from "react-router-dom";
+import './index.css';
 
 function App() {
   const [count, setCount] = useState(0)
@@ -10,11 +9,16 @@ function App() {
     <>
       <div>
         <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
         </a>
         <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
         </a>
+          <h1 className="text-3xl font-bold underline">
+              Hello world!
+          </h1>
+          <div className="text-red-500 p-4 m-6">
+              Это компонент с использованием Tailwind CSS!
+          </div>
+          <Link to={"/product"}>menuuuuuu</Link>
       </div>
       <h1>Vite + React</h1>
       <div className="card">
