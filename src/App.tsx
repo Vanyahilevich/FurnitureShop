@@ -1,8 +1,10 @@
 import { useState } from 'react'
 import {Link} from "react-router-dom";
-import Button from "./components/Button";
 import Select from "./components/Select";
 import Option from "./components/Option";
+
+import './index.css';
+import Link from "./components/Link";
 
 function App() {
   const [count, setCount] = useState(0)
@@ -12,7 +14,13 @@ function App() {
         setSelectedValue(event.target.value);
     };
   return (
-    <>
+    <div className='font-mainFont'>
+        <Link>main</Link>
+        <Link>products</Link>
+        <Link>contact</Link>
+        <Link>about</Link>
+
+
       <div>
         <a href="https://vitejs.dev" target="_blank">
         </a>
@@ -28,7 +36,7 @@ function App() {
           <div className="text-red-500 p-4 m-6">
               Это компонент с использованием Tailwind CSS!
           </div>
-          <Link to={"/product"}>menuuuuuu</Link>
+
       </div>
       <h1>Vite + React</h1>
       <div className="card">
@@ -42,7 +50,7 @@ function App() {
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
-    </>
+    </div>
   )
 }
 
