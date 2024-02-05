@@ -1,13 +1,20 @@
-import React from 'react';
+import {FC, memo, ReactNode} from 'react';
+import {Link as LinkRouters} from 'react-router-dom'
 
-const Button = () => {
-    let a  = 10
-    a = "my"
+interface ILink {
+    children: ReactNode,
+    to: string
+}
+
+const Link:FC<ILink> = memo(({children, to} :ILink) => {
     return (
-        <button>
-            Click me in dev!
-        </button>
+        <LinkRouters
+            to={to}
+            className='text-lightBlue font-mainFont text-lg
+                 hover:text-lightBlueHover focus:underline'>
+            {children}
+        </LinkRouters>
     );
-};
+});
 
-export default Button;
+export default Link;

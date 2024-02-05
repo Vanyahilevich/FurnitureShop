@@ -1,10 +1,16 @@
 import { useState } from 'react'
 import {Link} from "react-router-dom";
-import './index.css';
+import Button from "./components/Button";
+import Select from "./components/Select";
+import Option from "./components/Option";
 
 function App() {
   const [count, setCount] = useState(0)
+    const [selectedValue, setSelectedValue] = useState('');
 
+    const handleSelectChange = (event ) => {
+        setSelectedValue(event.target.value);
+    };
   return (
     <>
       <div>
@@ -15,6 +21,10 @@ function App() {
           <h1 className="text-3xl font-bold underline">
               Hello world!
           </h1>
+          <Select value={selectedValue} onChange={handleSelectChange}>
+              <Option value={10} label={"10"}/>
+              <Option value={20} label={"20"}/>
+          </Select>
           <div className="text-red-500 p-4 m-6">
               Это компонент с использованием Tailwind CSS!
           </div>
