@@ -1,30 +1,15 @@
-import React, {useState} from 'react';
 
 const CardLayout = ({image, info, actions}) => {
 
-  const [isHover, setIsHover] = useState(false);
-  const onMouseEnter = () => {
-    setIsHover(true);
-  };
-  const onMouseLeave = () => {
-    setIsHover(false);
-  };
   return (
-    <div
-      className="relative"
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
-    >
+    <div className="group relative">
       <div>{image}</div>
-      <div>{info}</div>
+      <div className="bg-blue-200 p-2">{info}</div>
       <div
-        className={`
-       ${isHover ? 'opacity-100' : 'opacity-0'}
-       absolute top-0 right-0
-       flex gap-x-1
-       bg-cyan-500 px-2 py-1
-       transition-all duration-300
-    `}>
+        className="bg-blue-200 p-2 opacity-0 transition duration-300
+                  absolute top-0 right-0
+                  group-hover:opacity-100"
+      >
         {actions}
       </div>
     </div>

@@ -15,17 +15,18 @@ interface IProductCardProps {
   currency: string,
 }
 
-const ProductCard:FC<IProductCardProps> = ({title, price,currency, src}) => {
+const ProductCard: FC<IProductCardProps> = ({title, price, currency, src}) => {
 
 
   return (
     <CardLayout
-      image={<img src={"../../public/light.jpg"} alt={"Light"}/>}
+      image={<img src={src} alt={"Light"}/>}
       info={
         <>
           <CardName>{title}</CardName>
           <CardPrice>{currency} {price}</CardPrice>
-        </>}
+        </>
+      }
       actions={
         <>
           <Link to="/product">

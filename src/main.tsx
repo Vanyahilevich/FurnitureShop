@@ -4,6 +4,8 @@ import {createRoot} from 'react-dom/client';
 import './index.css';
 import PTest from "./PTest";
 import VTest from "./VTest";
+import {Provider} from "react-redux";
+import store from "./store";
 
 const router = createBrowserRouter([
   {
@@ -50,10 +52,12 @@ const router = createBrowserRouter([
 ]);
 
 
-const root = createRoot(document.getElementById('root'));
+const root = createRoot(document.getElementById('root') as HTMLElement);
 
 root.render(
-  <RouterProvider router={router}>
-    <App/>
-  </RouterProvider>
+  <Provider store={store}>
+    <RouterProvider router={router}>
+      <App/>
+    </RouterProvider>
+  </Provider>
 );
