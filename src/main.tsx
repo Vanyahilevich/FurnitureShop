@@ -1,25 +1,25 @@
-import {createBrowserRouter, RouterProvider} from 'react-router-dom';
-import App from './App';
-import {createRoot} from 'react-dom/client';
-import './index.css';
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import App from "./App";
+import { createRoot } from "react-dom/client";
+import "./index.css";
 import PTest from "./PTest";
 import VTest from "./VTest";
-import {Provider} from "react-redux";
+import { Provider } from "react-redux";
 import store from "./store";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App/>,
+    element: <App />,
     errorElement: <div>Occurred error</div>,
     children: [
       {
         path: "/login",
-        element: <div>Login</div>
+        element: <div>Login</div>,
       },
       {
         path: "/signup",
-        element: <div>Sign Up</div>
+        element: <div>Sign Up</div>,
       },
       {
         path: "products",
@@ -38,26 +38,27 @@ const router = createBrowserRouter([
         element: <div>delivery</div>,
       },
       {
+        path: "favorite",
+        element: <div>favorite</div>,
+      },
+      {
         path: "/p",
-        element: <PTest/>,
+        element: <PTest />,
       },
       {
         path: "/v",
-        element: <VTest/>,
-      }
-    ]
+        element: <VTest />,
+      },
+    ],
   },
-
-
 ]);
 
-
-const root = createRoot(document.getElementById('root') as HTMLElement);
+const root = createRoot(document.getElementById("root") as HTMLElement);
 
 root.render(
   <Provider store={store}>
     <RouterProvider router={router}>
-      <App/>
+      <App />
     </RouterProvider>
-  </Provider>
+  </Provider>,
 );

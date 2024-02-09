@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface IInitialState {
   age: number;
-  name: string,
+  name: string;
 }
 
 const initialState: IInitialState = {
@@ -10,20 +10,22 @@ const initialState: IInitialState = {
   name: "",
 };
 
-
 const filterSlice = createSlice({
   name: "filter",
   initialState: initialState,
   reducers: {
-    updateFilter: (state: IInitialState, action: PayloadAction<Partial<IInitialState>>) => ({
+    updateFilter: (
+      state: IInitialState,
+      action: PayloadAction<Partial<IInitialState>>,
+    ) => ({
       ...state,
       ...action.payload,
     }),
     resetFilter: () => ({
-      ...initialState
+      ...initialState,
     }),
   },
 });
 
-export const { updateFilter,resetFilter } = filterSlice.actions;
+export const { updateFilter, resetFilter } = filterSlice.actions;
 export default filterSlice.reducer;

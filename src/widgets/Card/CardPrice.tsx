@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { ReactNode } from "react";
 
-const CardPrice = ({children}) => {
+const CardPrice = ({ children }: { children: ReactNode }) => {
   return (
-    <h2 className="">
+    <h2 className="text-xl font-light leading-tight text-lightBlue">
       {children}
     </h2>
   );

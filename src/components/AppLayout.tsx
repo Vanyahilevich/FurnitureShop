@@ -1,15 +1,24 @@
-import React from 'react';
+import React, { FC, ReactNode } from "react";
 
-const AppLayout = ({header, footer, aside, children}) => {
+interface IAppLayoutProps {
+  header: ReactNode;
+  footer: ReactNode;
+  aside: ReactNode;
+  children: ReactNode;
+}
+const AppLayout: FC<IAppLayoutProps> = ({
+  header,
+  footer,
+  aside,
+  children,
+}) => {
   return (
-    <div className='font-mainFont flex flex-col items-center justify-center min-h-screen bg-gray-300'>
-      <header>{header}</header>
+    <div className="max-w-6xl font-mainFont flex flex-col  min-h-screen mx-auto px-4">
+      <header className="w-full py-9">{header}</header>
       <aside>{aside}</aside>
-      <main>{children}</main>
+      <main className="flex-auto">{children}</main>
       <footer>{footer}</footer>
     </div>
-
-
   );
 };
 

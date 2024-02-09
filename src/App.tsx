@@ -1,20 +1,15 @@
-import './index.css';
+import "./index.css";
 import React from "react";
-import {Outlet} from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import AppLayout from "./components/AppLayout";
-import Header from "./widgets/Header";
+import Header from "./widgets/Header/Header";
 
 function App() {
-
   return (
-    <AppLayout
-      header={<Header/>}
-      aside={<></>}
-      footer={<div>Footer</div>}
-    >
-      <Outlet/>
+    <AppLayout header={<Header />} aside={<></>} footer={<div>Footer</div>}>
+      <Outlet />
     </AppLayout>
-  )
+  );
 }
 
-export default App
+export default App;
