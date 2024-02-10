@@ -1,21 +1,30 @@
-import React, { useState } from "react";
-import clsx from "clsx";
-import CloseButton from "./CloseButton";
+import React, { ChangeEvent, useState } from "react";
+import SearchLayout from "./SearchLayout";
 import SearchButton from "./SearchButton";
 import Input from "./Input";
+import CloseButton from "./CloseButton";
 
-const Search = ({ onClick }: { onClick?: () => void }) => {
-  const [open, setOpen] = useState(false);
+const Search = () => {
+  const [value, setValue] = useState("");
+  const handleChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    setValue(value);
+  };
+
   return (
-    <div className="flex items-center gap-2">
-      {open && <Input type="text" placeholder="Search.." />}
-      <div className={clsx("visible transition-all", { "hidden ": open })}>
-        <SearchButton onClick={() => setOpen(true)} />
-      </div>
-      <div className={clsx("visible transition-all", { "hidden ": !open })}>
-        <CloseButton onClick={() => setOpen(false)} />
-      </div>
-    </div>
+    <SearchLayout
+      input={
+        <Input
+          value={value}
+          onChange={handleChangeInput}
+          type="text"
+          placeholder="Search.."
+          autoFocus
+        />
+      }
+      search={<SearchButton />}
+      close={<CloseButton />}
+    />
   );
 };
 

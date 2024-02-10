@@ -1,29 +1,20 @@
 import clsx from "clsx";
-import React, { ChangeEvent, FC, InputHTMLAttributes, useState } from "react";
+import React, { ChangeEvent, Dispatch, FC, InputHTMLAttributes } from "react";
 
 interface IInputProps extends InputHTMLAttributes<HTMLInputElement> {
-  defaultValue?: string;
+  value?: string;
+  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
-const Input: FC<IInputProps> = ({ defaultValue, ...props }) => {
-  const stateInitialized = React.useRef(false);
-  const [value, setValue] = useState("");
-  if (defaultValue && !stateInitialized.current) {
-    setValue(defaultValue);
-    stateInitialized.current = true;
-  }
-  const handleChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
-    setValue(value);
-    stateInitialized.current = true;
-  };
+const Input: FC<IInputProps> = ({ value, onChange, ...props }) => {
   return (
     <input
       {...props}
       value={value}
-      onChange={handleChangeInput}
+      onChange={onChange}
       className={clsx(
-        "border-2 border-beigeHover rounded-md px-1  outline-0",
+        "border-2 border-beigeHover rounded-md pl-2 pr-1 py-1  outline-0",
+        "text-sm text-slate-600",
         "hover:border-lightBlue ",
         "focus:border-lightBlue ",
         "active:border-lightBlue ",
