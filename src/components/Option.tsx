@@ -1,19 +1,26 @@
-import React, { FC } from "react";
+import { Listbox } from "@headlessui/react";
+import clsx from "clsx";
+import { FC, ReactNode } from "react";
 
 interface IOptionProps {
-  value: string | number;
-  label: string;
+  value?: string;
+  children?: ReactNode;
 }
 
-const Option: FC<IOptionProps> = React.memo(
-  ({ value, label, children }: IOptionProps) => {
-    return (
-      <option key={value} value={value}>
-        <span>{children}</span>
-        <span>{label}</span>
-      </option>
-    );
-  },
-);
+const Option: FC<IOptionProps> = ({ value, children }) => {
+  return (
+    <Listbox.Option value={value}>
+      <div
+        className={clsx(
+          "text-lightBlue pl-4 py-1 cursor-pointer",
+          "hover:text-darkBlueHover",
+          " active:text-darkBlueHover",
+        )}
+      >
+        {children}
+      </div>
+    </Listbox.Option>
+  );
+};
 
 export default Option;
