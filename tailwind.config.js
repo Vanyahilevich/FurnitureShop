@@ -14,8 +14,8 @@ module.exports = {
         beigeHover: "#6891A7",
       },
       fontFamily: {
-        mainFont: "Montserrat",
-        primaryFont: "Poiret One",
+        mainFont: ["Montserrat", 'sans-serif'],
+        primaryFont: ["Poiret One", 'sans-serif']
       },
     },
   },
