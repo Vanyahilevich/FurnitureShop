@@ -1,0 +1,14 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const checkErrorValidateMiddleware_js_1 = require("../middleware/checkErrorValidateMiddleware.js");
+const signUpValidationRules_1 = require("../validate/signUpValidationRules");
+const signInValidationRules_1 = require("../validate/signInValidationRules");
+const express = require("express");
+const router = express.Router();
+const authMiddleware = require('../middleware/authMiddleware.js');
+const authController = require('../controllers/authController.js');
+router.post("/signup", (0, signUpValidationRules_1.signUpValidationRules)(), checkErrorValidateMiddleware_js_1.checkErrorValidateMiddleware, authController.signUp);
+router.post("/signin", (0, signInValidationRules_1.signInValidationRules)(), checkErrorValidateMiddleware_js_1.checkErrorValidateMiddleware, authController.signIn);
+router.get("/auth", authMiddleware, authController.auth);
+router.get("/logout", authMiddleware, authController.logOut);
+module.exports = router;
