@@ -2,18 +2,16 @@ import { Listbox, Transition } from "@headlessui/react";
 import clsx from "clsx";
 import { FC, ReactNode, useState } from "react";
 import { SlArrowRight } from "react-icons/sl";
-import Option from "../components/Option";
 interface ISelectProps {
   children: ReactNode;
   onChange: (value: string) => void;
   label: string;
 }
 
-const Select: FC<ISelectProps> = ({ label, onChange, children }) => {
+const UISelect: FC<ISelectProps> = ({ label, onChange, children }) => {
   const [selectedOption, setSelectedOption] = useState<string>(
-    label ? label : children[0].props.value,
+    label ? label : children[0]?.props.value,
   );
-  console.log(selectedOption);
   return (
     <Listbox
       value={selectedOption}
@@ -24,7 +22,7 @@ const Select: FC<ISelectProps> = ({ label, onChange, children }) => {
     >
       {({ open }) => (
         <>
-          <Listbox.Button className="relative min-w-[316px] flex justify-between items-center py-1 text-left border-b-2 border-lightBlueHover sm:text-sm">
+          <Listbox.Button className="relative w-full flex justify-between items-center py-1 text-left border-b-2 border-lightBlueHover sm:text-sm">
             {selectedOption}
             <SlArrowRight
               className={clsx("w-2 transition-transform	", {
@@ -49,4 +47,4 @@ const Select: FC<ISelectProps> = ({ label, onChange, children }) => {
   );
 };
 
-export default Select;
+export default UISelect;

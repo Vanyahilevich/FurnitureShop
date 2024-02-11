@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useState } from "react";
 import SearchLayout from "./SearchLayout";
 import SearchButton from "./SearchButton";
-import Input from "./Input";
+import Input from "../ui-kit/UIInput";
 import CloseButton from "./CloseButton";
 
 const Search = () => {

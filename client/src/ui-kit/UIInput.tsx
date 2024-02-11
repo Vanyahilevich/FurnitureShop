@@ -6,7 +6,7 @@ interface IInputProps extends InputHTMLAttributes<HTMLInputElement> {
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
-const Input: FC<IInputProps> = ({ value, onChange, ...props }) => {
+const UIInput: FC<IInputProps> = ({ value, onChange, ...props }) => {
   return (
     <input
       {...props}
@@ -23,4 +23,4 @@ const Input: FC<IInputProps> = ({ value, onChange, ...props }) => {
   );
 };
 
-export default Input;
+export default UIInput;

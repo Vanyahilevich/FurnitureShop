@@ -5,13 +5,22 @@ module.exports = {
     extend: {
       colors: {
         lightBlue: "#82B5D1",
-        lightYellow: "#FFDF8D",
-        darkBlue: "#4E6D7D",
-        beige: "#FBF6EF",
         lightBlueHover: "#6891A7",
-        lightYellowHover: "#E0BF69",
+        lightBlueClick:"#9BC4DA",
+        
+        darkBlue: "#4E6D7D",
         darkBlueHover: "#344854",
+        darkBlueClick: "#6891A7",
+
+        beige: "#FBF6EF",
         beigeHover: "#6891A7",
+        
+        peach: "#F4DAB9",
+        peachClick: "#faeede",
+
+        lightYellow: "#FFDF8D",
+        lightYellowHover: "#E0BF69",
+        lightYellowClick: "#FFE8AC",
       },
       fontFamily: {
         mainFont: ["Montserrat", 'sans-serif'],

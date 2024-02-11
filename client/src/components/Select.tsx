@@ -4,9 +4,9 @@ import { SlArrowRight } from "react-icons/sl";
 import clsx from "clsx";
 
 interface ISelectProps {
-  value?: string;
-  onChange?: (event: React.ChangeEvent<HTMLSelectElement>) => void;
-  children?: ReactNode;
+  value: string;
+  onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+  children: ReactNode;
 }
 
 const categories = [

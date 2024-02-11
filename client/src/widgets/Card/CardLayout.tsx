@@ -9,7 +9,7 @@ interface ICardLayoutProps {
 const CardLayout: FC<ICardLayoutProps> = ({ imageSrc, info, actions }) => {
   return (
     <div className="group/card relative w-60">
-      <div className="w-full">
+      <div className="w-full max-h-[288px]">
         <img className="w-full object-contain" src={imageSrc} alt={"Light"} />
       </div>
       <div className=" pt-2">{info}</div>

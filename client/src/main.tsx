@@ -6,6 +6,7 @@ import PTest from "./PTest";
 import VTest from "./VTest";
 import { Provider } from "react-redux";
 import store from "./store";
+import ProductsLayout from "./pages/ProductsLayout";
 
 const router = createBrowserRouter([
   {
@@ -23,7 +24,7 @@ const router = createBrowserRouter([
       },
       {
         path: "products",
-        element: <div>Products</div>,
+        element: <ProductsLayout />,
       },
       {
         path: "products/:id",

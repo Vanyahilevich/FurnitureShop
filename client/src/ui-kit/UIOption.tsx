@@ -7,7 +7,7 @@ interface IOptionProps {
   children?: ReactNode;
 }
 
-const Option: FC<IOptionProps> = ({ value, children }) => {
+const UIOption: FC<IOptionProps> = ({ value, children }) => {
   return (
     <Listbox.Option value={value}>
       <div
@@ -23,4 +23,4 @@ const Option: FC<IOptionProps> = ({ value, children }) => {
   );
 };
 
-export default Option;
+export default UIOption;
