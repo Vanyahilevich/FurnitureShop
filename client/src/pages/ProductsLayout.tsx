@@ -2,25 +2,27 @@ import React, { useEffect } from "react";
 import Select from "../ui-kit/UISelectNew";
 import Option from "../ui-kit/UIOption";
 import ProductCard from "../widgets/Card/product-card";
+import { useQuery } from "@tanstack/react-query";
 
 const ProductsLayout = () => {
   const handleSelectChange = (value: string) => {
     console.log(value);
   };
-  const getProducts = async () => {
-    const response: any = await fetch("http://localhost:5000/api/products");
-    const data = await response.json();
-    console.log(data);
-  };
-  useEffect(() => {
-    console.log("start");
-    getProducts();
-    console.log("end");
-  }, []);
+  // const { isPending, error, data } = useQuery({
+  //   queryKey: ["getAllProducts"],
+  //   queryFn: () =>
+  //     fetch("http://localhost:5000/api/products/similar/2").then((res) =>
+  //       res.json(),
+  //     ),
+  // });
+  // console.log(data);
+  // if (isPending) return "Loading...";
+
+  // if (error) return "An error has occurred: " + error.message;
 
   return (
     <div className="flex gap-8 w-full">
-      <div className="flex flex-col w-1/4 gap-5">
+      <div className="flex flex-col w-1/4 gap-5 transition-all">
         <Select label="Price" onChange={handleSelectChange}>
           <Option value="Durward Reynolds">Durward Reynolds</Option>
           <Option value="Kenton Towne">Kenton Towne</Option>

@@ -46,21 +46,21 @@ const productsRepository = {
     }
   },
   getProductById: async (db, id) => {
-    return await db.collection(productsRepository.dbName).findOne({_id: new ObjectId(id)})
+    return await db.collection(productsRepository.dbName).findOne({id})
   },
   getSimilarProductById: async (db, id) => {
-    return await db.collection(productsRepository.dbName).find({_id: {$ne: new ObjectId(id)}}).toArray()
+    return await db.collection(productsRepository.dbName).find({id: {$ne: id}}).toArray()
   },
   checkValidityCount: async (db, id, size, count) => {
     return await db.collection(productsRepository.dbName).findOne({
-      _id: new ObjectId(id),
+      id: new ObjectId(id),
       "size": {$elemMatch: {size: size, count: {$gte: (count + 1)}}}
     },)
   },
   buyProduct: async (db, id, size, count) => {
     return await db.collection(productsRepository.dbName).updateOne(
       {
-        _id: new ObjectId(id),
+        id: new ObjectId(id),
         "size": {$elemMatch: {size: size, count: {$gte: count}}}
       }, {
         $inc: {"size.$.count": -count}

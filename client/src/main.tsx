@@ -8,6 +8,14 @@ import { Provider } from "react-redux";
 import store from "./store";
 import ProductsLayout from "./pages/ProductsLayout";
 
+import {
+  QueryClient,
+  QueryClientProvider,
+  useQuery,
+} from "@tanstack/react-query";
+
+const queryClient = new QueryClient();
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -57,9 +65,11 @@ const router = createBrowserRouter([
 const root = createRoot(document.getElementById("root") as HTMLElement);
 
 root.render(
-  <Provider store={store}>
-    <RouterProvider router={router}>
-      <App />
-    </RouterProvider>
-  </Provider>,
+  <QueryClientProvider client={queryClient}>
+    <Provider store={store}>
+      <RouterProvider router={router}>
+        <App />
+      </RouterProvider>
+    </Provider>
+  </QueryClientProvider>,
 );
