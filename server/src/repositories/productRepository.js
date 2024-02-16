@@ -1,35 +1,41 @@
 const {ObjectId} = require("mongodb");
 const productsRepository = {
-  dbName: "furniture",
+  dbName: "products",
   getAll: async (db, param) => {
     const query = {}
-    if (param.size) {
-      query[`size`] = {
-          $elemMatch: {
-            size: param.size,
-            count: {$gt: 0}
-          }
-      }
+    
+    // if (param.maxPrice) {
+    //   query.price = {$gte: +param.minPrice, $lte: +param.maxPrice}
+    // }
+    if(param.category){
+      query.category = param.category 
     }
-    if (param.maxPrice) {
-      query.price = {$gte: +param.minPrice, $lte: +param.maxPrice}
+    if(param.material){
+      query.material = param.material 
     }
-    if (param.search) {
-      query.$or = [
-        {description: {$regex: param.search, $options: 'i'}},
-        {title: {$regex: param.search, $options: 'i'}}
-      ];
-    }
+    // if (param.search) {
+    //   query.$or = [
+    //     {description: {$regex: param.search, $options: 'i'}},
+    //     {title: {$regex: param.search, $options: 'i'}}
+    //   ];
+    // }
 
-    let maxPrice = await db.collection(productsRepository.dbName)
-      .find({}).sort({ price: -1 }).limit(1).toArray();
-      maxPrice = maxPrice[0].price
+    // let maxPrice = await db.collection(productsRepository.dbName)
+    //   .find({}).sort({ price: -1 }).limit(1).toArray();
+    //   maxPrice = maxPrice[0].price
     let cursor = db.collection(productsRepository.dbName).find(query)
 
     const countDocuments = await cursor.count()
     let page
+    
     if (param.sort) {
-      cursor = cursor.sort({price: param.sort})
+      let sortChoose = {
+        "Sort Ascending": 1,
+        "Sort descending": -1,
+      }
+  
+
+      cursor = cursor.sort({price: sortChoose[param.sort] || ""})
     }
     if (param.page) {
       cursor = cursor.skip(+param.limit * (param.page - 1))
@@ -41,7 +47,7 @@ const productsRepository = {
     return {
       products: await cursor.toArray(),
       page: page,
-      maxPrice: maxPrice,
+      // maxPrice: maxPrice,
       foundProduct: countDocuments
     }
   },

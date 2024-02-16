@@ -4,13 +4,19 @@ interface ICardLayoutProps {
   imageSrc: string;
   info: ReactNode;
   actions: ReactNode;
+  onClick?: () => void;
 }
 
-const CardLayout: FC<ICardLayoutProps> = ({ imageSrc, info, actions }) => {
+const CardLayout: FC<ICardLayoutProps> = ({
+  imageSrc,
+  info,
+  actions,
+  onClick,
+}) => {
   return (
-    <div className="group/card relative w-60">
-      <div className="w-full max-h-[288px]">
-        <img className="w-full object-contain" src={imageSrc} alt={"Light"} />
+    <div onClick={onClick} className="group/card relative w-50">
+      <div className="w-44 h-50 overflow-hidden">
+        <img className="w-full h-auto" src={imageSrc} alt={"Light"} />
       </div>
       <div className=" pt-2">{info}</div>
       <div

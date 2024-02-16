@@ -11,9 +11,9 @@
     "noEmit": true,
     "isolatedModules": true,
     "allowJs": true,
-    "baseUrl": ".",
+    "baseUrl": "./src",
     "paths": {
-      // "@/*": ["./src/*", "./dist/*", ""],
+      "*": ["*", "src/*"]
     }
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.js"],

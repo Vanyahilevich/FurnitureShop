@@ -2,28 +2,21 @@ import { Listbox, Transition } from "@headlessui/react";
 import clsx from "clsx";
 import { FC, ReactNode, useState } from "react";
 import { SlArrowRight } from "react-icons/sl";
+
 interface ISelectProps {
   children: ReactNode;
   onChange: (value: string) => void;
-  label: string;
+  value: string;
+  onReset?: () => void;
 }
 
-const UISelect: FC<ISelectProps> = ({ label, onChange, children }) => {
-  const [selectedOption, setSelectedOption] = useState<string>(
-    label ? label : children[0]?.props.value,
-  );
+const UISelect: FC<ISelectProps> = ({ value, onChange, children }) => {
   return (
-    <Listbox
-      value={selectedOption}
-      onChange={(value) => {
-        setSelectedOption(value);
-        onChange(value);
-      }}
-    >
+    <Listbox value={value} onChange={onChange}>
       {({ open }) => (
         <>
           <Listbox.Button className="relative w-full flex justify-between items-center py-1 text-left border-b-2 border-lightBlueHover sm:text-sm">
-            {selectedOption}
+            {value}
             <SlArrowRight
               className={clsx("w-2 transition-transform	", {
                 "rotate-90": open,
@@ -39,7 +32,7 @@ const UISelect: FC<ISelectProps> = ({ label, onChange, children }) => {
             leaveFrom="transform scale-100 opacity-100"
             leaveTo="transform scale-95 opacity-0"
           >
-            <Listbox.Options static>{children}</Listbox.Options>
+            <Listbox.Options>{children}</Listbox.Options>
           </Transition>
         </>
       )}

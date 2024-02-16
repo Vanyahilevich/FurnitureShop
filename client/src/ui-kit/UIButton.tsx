@@ -25,7 +25,7 @@ const UIButton: FC<IUIButtonProps> = ({
     {
       lg: "text-2xl py-4 px-[116px]",
       md: "text-2xl py-4 px-[84px]",
-      sm: "text-xl py-3 px-[56px]",
+      sm: "text-lg py-1  px-8",
     }[size],
     {
       details:

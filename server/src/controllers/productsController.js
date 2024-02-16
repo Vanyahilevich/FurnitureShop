@@ -6,7 +6,6 @@ const productsController = {
   getAll: async (req, res, next) => {
     try {
       const data = await productRepository.getAll(req.db, req.query);
-      console.log(data)
       res.json(data)
     } catch (error) {
       console.error("Проблема с БД: GetALL")

@@ -5,7 +5,7 @@ import clsx from "clsx";
 
 interface ISelectProps {
   value: string;
-  onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+  onChange: (value: string) => void;
   children: ReactNode;
 }
 
