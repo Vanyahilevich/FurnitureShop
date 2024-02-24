@@ -11,11 +11,11 @@
     "noEmit": true,
     "isolatedModules": true,
     "allowJs": true,
-    "baseUrl": "./src",
+    "baseUrl": ".",
     "paths": {
-      "*": ["*", "src/*"]
+      "src/*": ["src/*", "src/*.js", "src/*.jsx"]
     }
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.js"],
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.js", "src/routes.tjs"],
   "exclude": ["node_modules"]
 }

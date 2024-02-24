@@ -1,8 +1,13 @@
 import IconButton from "../shared/IconButton";
 import Tooltip from "../shared/Tooltip";
 import { CiShoppingCart } from "react-icons/ci";
+import { MouseEvent } from "react";
 
-const AddToBasketButton = ({ onClick }: { onClick?: () => void }) => {
+const AddToBasketButton = ({
+  onClick,
+}: {
+  onClick: (e: MouseEvent<HTMLButtonElement>) => void;
+}) => {
   return (
     <Tooltip title={"Add to Basket"}>
       <IconButton onClick={onClick}>

@@ -2,7 +2,7 @@ export type ProductsResponse = {
   foundProduct: number;
   maxPrice: number;
   products: ProductType[];
-  page: number;
+  totalPages: number;
 };
 export type ProductType = {
   id: string;

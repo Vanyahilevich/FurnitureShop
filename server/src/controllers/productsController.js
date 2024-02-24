@@ -16,7 +16,6 @@ const productsController = {
   getProductById: async (req, res, next) => {
     try {
       const {id} = req.params
-      console.log(id)
       const result = await productRepository.getProductById(req.db, id)
       res.json(result)
     } catch (error) {
@@ -51,8 +50,6 @@ const productsController = {
       console.error("Проблема с БД: updateProducts");
       return next(error);
     }
-
-    // res.json({message: "sds"});
   }
 }
 module.exports = productsController

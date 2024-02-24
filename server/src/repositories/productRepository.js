@@ -3,51 +3,41 @@ const productsRepository = {
   dbName: "products",
   getAll: async (db, param) => {
     const query = {}
-    
-    // if (param.maxPrice) {
-    //   query.price = {$gte: +param.minPrice, $lte: +param.maxPrice}
-    // }
+    console.log("get all")
     if(param.category){
       query.category = param.category 
     }
     if(param.material){
       query.material = param.material 
     }
-    // if (param.search) {
-    //   query.$or = [
-    //     {description: {$regex: param.search, $options: 'i'}},
-    //     {title: {$regex: param.search, $options: 'i'}}
-    //   ];
-    // }
-
-    // let maxPrice = await db.collection(productsRepository.dbName)
-    //   .find({}).sort({ price: -1 }).limit(1).toArray();
-    //   maxPrice = maxPrice[0].price
     let cursor = db.collection(productsRepository.dbName).find(query)
 
     const countDocuments = await cursor.count()
-    let page
+    let totalPages
     
     if (param.sort) {
       let sortChoose = {
         "Sort Ascending": 1,
         "Sort descending": -1,
       }
-  
-
       cursor = cursor.sort({price: sortChoose[param.sort] || ""})
+    }
+    if (param.search) {
+      query.$or = [
+        // {description: {$regex: param.search, $options: 'i'}},
+        {name: {$regex: param.search, $options: 'i'}}
+      ];
     }
     if (param.page) {
       cursor = cursor.skip(+param.limit * (param.page - 1))
-      page = Math.ceil(countDocuments / param.limit)
+      totalPages = Math.ceil(countDocuments / param.limit)
     }
     if (param.limit) {
       cursor = cursor.limit(+param.limit)
     }
     return {
       products: await cursor.toArray(),
-      page: page,
-      // maxPrice: maxPrice,
+      totalPages: totalPages,
       foundProduct: countDocuments
     }
   },

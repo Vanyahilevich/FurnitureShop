@@ -2,17 +2,24 @@ import clsx from "clsx";
 import React, { ChangeEvent, Dispatch, FC, InputHTMLAttributes } from "react";
 
 interface IInputProps extends InputHTMLAttributes<HTMLInputElement> {
-  value?: string;
-  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+  value: string;
+  onChangeValue: (value: string) => void;
+  className: string;
 }
 
-const UIInput: FC<IInputProps> = ({ value, onChange, ...props }) => {
+const UIInput: FC<IInputProps> = ({
+  value,
+  onChangeValue,
+  className,
+  ...props
+}) => {
   return (
     <input
       {...props}
       value={value}
-      onChange={onChange}
+      onChange={(e) => onChangeValue(e.target.value)}
       className={clsx(
+        className,
         "border-2 border-beigeHover rounded-md pl-2 pr-1 py-1  outline-0",
         "text-sm text-slate-600",
         "hover:border-lightBlue ",

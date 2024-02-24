@@ -7,7 +7,7 @@ const authController = {
   signUp: async (req, res, next) => {
 
     const user = req.body;
-    // console.log(req.db)
+    console.log("auth")
     try {
       const result = await authRepository.getUserByUserEmail(req.db, user.email)
       if (!!result) {
@@ -24,7 +24,7 @@ const authController = {
       next(error)
     }
   },
-  signIn: async (req, res, next) => {
+  login: async (req, res, next) => {
     const {email, password} = req.body
 
     try {
@@ -41,7 +41,7 @@ const authController = {
         httpOnly: true,
         expires: new Date(Date.now() + 3600000 * 24),
         sameSite: 'Lax',
-        domain: 'localhost',  // Замените на фактический домен
+        domain: 'localhost',  
       })
         .status(200)
         .json(user);

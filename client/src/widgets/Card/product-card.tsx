@@ -1,11 +1,11 @@
-import React, { FC } from "react";
+import React, { FC, MouseEvent } from "react";
 import CardName from "./CardName";
 import CardPrice from "./CardPrice";
 import CardLayout from "./CardLayout";
 import AddToBasketButton from "../../shared/AddToBasketButton";
 import AddToFavoriteButton from "../../shared/AddToFavoriteButton";
-import SearchButton from "../../shared/SearchButton";
 import { useNavigate } from "react-router-dom";
+import { clientRoutes } from "src/routes";
 
 interface IProductCardProps {
   id: string;
@@ -13,8 +13,8 @@ interface IProductCardProps {
   price: number;
   src: string;
   currency: string;
-  addToBasket?: () => void;
-  addToFavorite?: () => void;
+  addToBasket: (e: MouseEvent<HTMLButtonElement>) => void;
+  addToFavorite: (e: MouseEvent<HTMLButtonElement>) => void;
 }
 
 const ProductCard: FC<IProductCardProps> = ({
@@ -28,7 +28,7 @@ const ProductCard: FC<IProductCardProps> = ({
 }) => {
   const navigate = useNavigate();
   const handleClickProduct = () => {
-    navigate(`/products/${id}`);
+    navigate(clientRoutes.product + id);
   };
   return (
     <CardLayout

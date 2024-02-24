@@ -4,18 +4,23 @@ import React, { ReactNode } from "react";
 const CellPagination = ({
   activePage,
   children,
+  emptyCell,
   onClick,
 }: {
   activePage: boolean;
   children: ReactNode;
+  emptyCell: boolean;
   onClick: () => void;
 }) => {
+  if (emptyCell) {
+    return <div>...</div>;
+  }
   return (
-    <div
+    <li
       onClick={onClick}
       className={clsx(
-        "text-2xl flex justify-center items-center transition-colors",
-        "w-10 h-10 text-center ",
+        "text-lg flex justify-center items-center transition-colors cursor-pointer",
+        "w-9 h-9 text-center ",
         activePage
           ? "text-gray-300 bg-darkBlueHover"
           : "text-lightBlue bg-gray-200",
@@ -23,7 +28,7 @@ const CellPagination = ({
       )}
     >
       {children}
-    </div>
+    </li>
   );
 };
 

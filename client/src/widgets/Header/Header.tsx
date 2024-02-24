@@ -4,7 +4,7 @@ import HeaderLayout from "./header-layout";
 import HeaderLogo from "./HeaderLogo";
 import BasketButton from "../../shared/BasketButton";
 import FavoriteButton from "../../shared/FavoriteButton";
-import Search from "../../shared/Search";
+import { clientRoutes } from "src/routes";
 
 const Header = () => {
   return (
@@ -18,11 +18,12 @@ const Header = () => {
           <Link to={"/products/1"}> one products</Link>
           <Link to={"/v"}>test vanya</Link>
           <Link to={"/p"}>test pasha</Link>
+          <Link to={clientRoutes.signup}>Sign Up</Link>
+          <Link to={clientRoutes.login}>Login</Link>
         </>
       }
       actions={
         <>
-          <Search />
           <FavoriteButton />
           <BasketButton />
         </>

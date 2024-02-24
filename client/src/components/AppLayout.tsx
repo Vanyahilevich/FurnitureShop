@@ -16,7 +16,7 @@ const AppLayout: FC<IAppLayoutProps> = ({
     <div className="max-w-6xl font-mainFont flex flex-col  min-h-screen mx-auto px-4">
       <header className="w-full py-9">{header}</header>
       <aside>{aside}</aside>
-      <main className="flex-auto">{children}</main>
+      <main className="flex-auto flex">{children}</main>
       <footer>{footer}</footer>
     </div>
   );
