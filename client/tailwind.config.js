@@ -21,11 +21,13 @@ module.exports = {
         lightYellow: "#FFDF8D",
         lightYellowHover: "#E0BF69",
         lightYellowClick: "#FFE8AC",
+
+        footerInput: "#E6F0F6"
       },
       fontFamily: {
         mainFont: ["Montserrat", 'sans-serif'],
         primaryFont: ["Poiret One", 'sans-serif']
-      },
+      }
     },
   },
   plugins: [],

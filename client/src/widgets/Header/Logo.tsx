@@ -1,9 +1,17 @@
-import React from "react";
+import React, { FC } from "react";
+import clsx from "clsx";
 
-const HeaderLogo = () => {
+interface LogoProps {
+  className?: string;
+}
+
+const Logo: FC<LogoProps> = ({ className }) => {
   return (
     <svg
-      className="w-full h-full text-beigeHover hover:text-lightBlue transition-colors"
+      className={clsx(
+        className,
+        "text-beigeHover hover:text-lightBlue transition-colors",
+      )}
       viewBox="0 0 92 25"
       xmlns="http://www.w3.org/2000/svg"
     >
@@ -15,4 +23,4 @@ const HeaderLogo = () => {
   );
 };
 
-export default HeaderLogo;
+export default Logo;

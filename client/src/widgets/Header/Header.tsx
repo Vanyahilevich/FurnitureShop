@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "../../components/Link";
 import HeaderLayout from "./header-layout";
-import HeaderLogo from "./HeaderLogo";
+import Logo from "./Logo";
 import BasketButton from "../../shared/BasketButton";
 import FavoriteButton from "../../shared/FavoriteButton";
 import Search from "../../shared/Search";
@@ -9,7 +9,7 @@ import Search from "../../shared/Search";
 const Header = () => {
   return (
     <HeaderLayout
-      logo={<HeaderLogo />}
+      logo={<Logo />}
       links={
         <>
           <Link to={"/products"}>Products</Link>

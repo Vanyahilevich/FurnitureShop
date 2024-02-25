@@ -17,7 +17,7 @@ const AppLayout: FC<IAppLayoutProps> = ({
       <header className="w-full py-9">{header}</header>
       <aside>{aside}</aside>
       <main className="flex-auto">{children}</main>
-      <footer>{footer}</footer>
+      <footer className="mt-36">{footer}</footer>
     </div>
   );
 };

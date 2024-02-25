@@ -20,6 +20,7 @@ const Search = () => {
           type="text"
           placeholder="Search.."
           autoFocus
+          variant="search"
         />
       }
       search={<SearchButton />}

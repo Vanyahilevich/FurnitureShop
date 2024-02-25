@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Select from "../ui-kit/UISelectNew";
 import Option from "../ui-kit/UIOption";
 import ProductCard from "../widgets/Card/product-card";
@@ -7,13 +7,18 @@ const ProductsLayout = () => {
   const handleSelectChange = (value: string) => {
     console.log(value);
   };
+
+  const [products, setProducts] = useState([])
+
   const getProducts = async () => {
-    const response: any = await fetch("http://localhost:5000/api/products");
+    const response: any = await fetch("http://localhost:3000/products");
     const data = await response.json();
     console.log(data);
+    setProducts(data)
   };
   useEffect(() => {
     console.log("start");
+    
     getProducts();
     console.log("end");
   }, []);
@@ -42,31 +47,16 @@ const ProductsLayout = () => {
       </div>
       <div className="flex flex-col gap-8 w-3/4">
         <div className="flex-1">sort</div>
-        <div className="flex flex-1 gap-8">
-          <ProductCard
-            title="Black lamp"
+        <div className="flex flex-1 flex-wrap gap-8">
+          {products.length !== 0 && products.map((product) => (
+            <ProductCard 
+            title={product.name}
             currency="$"
-            price={478}
+            price={product.price}
             src={"/light.jpg"}
           />
-          <ProductCard
-            title="Black lamp"
-            currency="$"
-            price={478}
-            src={"/light.jpg"}
-          />
-          <ProductCard
-            title="Black lamp"
-            currency="$"
-            price={478}
-            src={"/light.jpg"}
-          />
-          <ProductCard
-            title="Black lamp"
-            currency="$"
-            price={478}
-            src={"/light.jpg"}
-          />
+          ))}
+          
         </div>
         <div className="self-end">pagination</div>
       </div>
