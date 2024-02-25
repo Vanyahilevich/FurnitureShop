@@ -7,39 +7,49 @@ import VTest from "./VTest";
 import { Provider } from "react-redux";
 import store from "./store";
 import ProductsLayout from "./pages/ProductsLayout";
+import { clientRoutes } from "./routes";
+import {
+  QueryClient,
+  QueryClientProvider,
+  useQuery,
+} from "@tanstack/react-query";
+import SignUpPage from "./pages/sign-up-page";
+import LoginPage from "./pages/login-page";
+
+const queryClient = new QueryClient();
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: clientRoutes.home,
     element: <App />,
     errorElement: <div>Occurred error</div>,
     children: [
       {
-        path: "/login",
-        element: <div>Login</div>,
+        path: clientRoutes.login,
+        element: <LoginPage />,
       },
       {
-        path: "/signup",
-        element: <div>Sign Up</div>,
+        path: clientRoutes.signup,
+        element: <SignUpPage />,
       },
       {
-        path: "products",
+        path: clientRoutes.products,
         element: <ProductsLayout />,
       },
       {
-        path: "products/:id",
-        element: <PTest />,
+        path: clientRoutes.products + "/:id",
+        element: <div>one Product</div>,
       },
       {
-        path: "basket",
+        path: clientRoutes.basket,
         element: <div>basket</div>,
       },
       {
-        path: "delivery",
+        path: clientRoutes.delivery,
         element: <div>delivery</div>,
       },
       {
-        path: "favorite",
+        path: clientRoutes.favorite,
         element: <div>favorite</div>,
       },
       {
@@ -57,9 +67,11 @@ const router = createBrowserRouter([
 const root = createRoot(document.getElementById("root") as HTMLElement);
 
 root.render(
-  <Provider store={store}>
-    <RouterProvider router={router}>
-      <App />
-    </RouterProvider>
-  </Provider>,
+  <QueryClientProvider client={queryClient}>
+    <Provider store={store}>
+      <RouterProvider router={router}>
+        <App />
+      </RouterProvider>
+    </Provider>
+  </QueryClientProvider>,
 );

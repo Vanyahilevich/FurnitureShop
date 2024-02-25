@@ -3,18 +3,25 @@ import React, { ChangeEvent, Dispatch, FC, InputHTMLAttributes } from "react";
 
 type InputVariant = "search" | "subscribe";
 
-interface UIInputProps extends InputHTMLAttributes<HTMLInputElement> {
-  value?: string;
+interface IInputProps extends InputHTMLAttributes<HTMLInputElement> {
+  value: string;
+  onChangeValue: (value: string) => void;
   variant: InputVariant;
-  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+  className: string;
 }
 
-const UIInput: FC<UIInputProps> = ({ value, onChange, variant, ...props }) => {
+const UIInput: FC<IInputProps> = ({
+  value,
+  onChangeValue,
+  className,
+  variant,
+  ...props
+}) => {
   return (
     <input
       {...props}
       value={value}
-      onChange={onChange}
+      onChange={(e) => onChangeValue(e.target.value)}
       className={clsx(
         {
           search:

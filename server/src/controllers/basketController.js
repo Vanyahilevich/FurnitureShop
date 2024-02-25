@@ -6,7 +6,7 @@ const basketRepository = require("../repositories/basketRepository");
 const basketController = {
   getAllProductInBasket: async (req, res, next) => {
     try {
-      const productsPointerInBasket = await basketRepository.getAllProductInBasket(req.db, req.user._id)
+      const productsPointerInBasket = await basketRepository.getAllProductInBasket(req.db, req.user.id)
       if (productsPointerInBasket.length === 0) {
         return res.status(200).json([])
       }

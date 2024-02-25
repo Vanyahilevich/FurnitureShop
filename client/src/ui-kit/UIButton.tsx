@@ -1,15 +1,16 @@
 import clsx from "clsx";
-import React, { FC, ReactNode } from "react";
+import React, { FC, HTMLAttributes, ReactNode } from "react";
 
 type ButtonSize = "sm" | "md" | "lg";
 type ButtonVariant = "details" | "pay" | "subscribe" | "add";
 
-interface IUIButtonProps {
+interface IUIButtonProps extends HTMLAttributes<HTMLButtonElement> {
   children?: ReactNode;
   className?: string;
   size: ButtonSize;
   variant: ButtonVariant;
   onClick?: () => void;
+  type?: "submit" | "reset" | "button" | undefined;
 }
 
 const UIButton: FC<IUIButtonProps> = ({
@@ -18,6 +19,8 @@ const UIButton: FC<IUIButtonProps> = ({
   size,
   variant,
   onClick,
+  type,
+  ...props
 }) => {
   const buttonClassName = clsx(
     "transition-color",
@@ -25,7 +28,7 @@ const UIButton: FC<IUIButtonProps> = ({
     {
       lg: "text-2xl py-4 px-[116px]",
       md: "text-2xl py-4 px-[84px]",
-      sm: "text-xl py-3 px-[56px]",
+      sm: "text-lg py-1  px-8",
     }[size],
     {
       details:
@@ -37,7 +40,12 @@ const UIButton: FC<IUIButtonProps> = ({
     }[variant],
   );
   return (
-    <button onClick={onClick} className={buttonClassName}>
+    <button
+      onClick={onClick}
+      className={buttonClassName}
+      type={type}
+      {...props}
+    >
       {children}
     </button>
   );

@@ -1,22 +1,22 @@
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, FC, useState } from "react";
 import SearchLayout from "./SearchLayout";
 import SearchButton from "./SearchButton";
-import Input from "../ui-kit/UIInput";
 import CloseButton from "./CloseButton";
+import UIInput from "../ui-kit/UIInput";
 
-const Search = () => {
-  const [value, setValue] = useState("");
-  const handleChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
-    setValue(value);
-  };
+interface ISearch {
+  search: string;
+  onChange: (value: string) => void;
+  onResetSearch?: () => void;
+}
 
+const Search: FC<ISearch> = ({ search, onChange, onResetSearch }) => {
   return (
     <SearchLayout
       input={
-        <Input
-          value={value}
-          onChange={handleChangeInput}
+        <UIInput
+          value={search}
+          onChangeValue={onChange}
           type="text"
           placeholder="Search.."
           autoFocus
@@ -24,7 +24,7 @@ const Search = () => {
         />
       }
       search={<SearchButton />}
-      close={<CloseButton />}
+      close={<CloseButton onClick={onResetSearch} />}
     />
   );
 };

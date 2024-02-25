@@ -15,10 +15,10 @@ router.post(
   authController.signUp
 );
 router.post(
-  "/signin",
+  "/login",
   signInValidationRules(),
   checkErrorValidateMiddleware,
-  authController.signIn
+  authController.login
 );
 
 router.post("/auth", authMiddleware, authController.auth);

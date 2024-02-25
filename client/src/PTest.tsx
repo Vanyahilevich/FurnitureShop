@@ -1,3 +1,4 @@
+
 import { React, useState, useEffect } from "react";
 import UIButton from "./ui-kit/UIButton";
 import imageProduct from "../public/black-desk-lamp.jpg";
@@ -28,6 +29,7 @@ const PTest = () => {
     setProduct(data);
   };
 
+<<<<<<< HEAD
   const getProducts = async () => {
     const response = await fetch(
       `http://localhost:3000/products?_start=0&_end=4`,
@@ -97,6 +99,7 @@ const PTest = () => {
       </div>
     </div>
   );
+
 };
 
 export default PTest;

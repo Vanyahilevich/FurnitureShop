@@ -1,15 +1,15 @@
-import React, { FC, ReactNode } from "react";
+import React, { ReactNode, MouseEvent, FC } from "react";
 
 interface IIconButtonProps {
   children: ReactNode;
   disabled?: boolean;
-  onClick?: () => void;
+  onClick: (e: MouseEvent<HTMLButtonElement>) => void;
 }
 
 const IconButton: FC<IIconButtonProps> = React.memo(
   ({ children, disabled = false, onClick = () => {} }: IIconButtonProps) => {
     return (
-      <button onClick={onClick} disabled={disabled}>
+      <button onClick={(e) => onClick(e)} disabled={disabled}>
         {children}
       </button>
     );

@@ -14,9 +14,9 @@ const authRepository = {
     }
     return db.collection("users").findOne({_id: new ObjectId(session.userId)})
   },
-  createUser: async (db, {username, surname, email, password, imageURL}) => {
+  createUser: async (db, {name, surname, email, password, imageURL}) => {
     const {insertedId} = await db.collection("users").insertOne({
-      username,
+      name,
       surname,
       email,
       password: crypto.createHash('sha256').update(password).digest('hex'),

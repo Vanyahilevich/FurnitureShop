@@ -6,7 +6,7 @@ const SearchButton = ({ onClick }: { onClick?: () => void }) => {
   return (
     <Tooltip title={"Search Product"}>
       <IconButton onClick={onClick}>
-        <CiSearch className="w-5 h-5 text-beigeHover transition-colors hover:text-lightBlue " />
+        <CiSearch className="w-6 h-6 text-beigeHover transition-colors hover:text-lightBlue " />
       </IconButton>
     </Tooltip>
   );
