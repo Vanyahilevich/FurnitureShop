@@ -1,51 +1,21 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import UIButton from "src/ui-kit/UIButton";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
 import UIFormInput from "src/ui-kit/UIFormInput";
 import { useMutation } from "@tanstack/react-query";
-import { serverRoutes } from "src/routes";
+import { clientRoutes, serverRoutes } from "src/routes";
 import axios from "axios";
+import { schema } from "./validateSchema";
+import { ErrorTextForm } from "../../ui-kit/ui-error-text-form";
 import { useEffect } from "react";
-import clsx from "clsx";
+import { useNavigate } from "react-router-dom";
+
 type Inputs = {
   name: string;
   surname: string;
   email: string;
   password: string;
   confirmPassword: string;
-};
-
-const schema = yup
-  .object({
-    name: yup.string(),
-    surname: yup.string(),
-    email: yup
-      .string()
-      .email("Enter correct email")
-      .required("Email is required"),
-    password: yup
-      .string()
-      .min(3, "Password must be at least 3 characters")
-      .required("Password is required"),
-    confirmPassword: yup
-      .string()
-      .oneOf([yup.ref("password"), null], "Password must match")
-      .required("Password is required"),
-  })
-  .required();
-
-const ErrorTextForm = ({ error, children }) => {
-  return (
-    <div
-      className={clsx(
-        "text-sm text-red-500 h-4 mt-1",
-        error ? "visible" : "invisible",
-      )}
-    >
-      {children}
-    </div>
-  );
 };
 
 const SignUpForm = () => {
@@ -56,8 +26,9 @@ const SignUpForm = () => {
   } = useForm({
     resolver: yupResolver(schema),
   });
-
+  const navigate = useNavigate();
   const { mutate, isSuccess, isPending, isError, error } = useMutation({
+    mutationKey: ["auth"],
     mutationFn: (data: any) => {
       return axios.post(serverRoutes.signup, data);
     },
@@ -66,8 +37,11 @@ const SignUpForm = () => {
     mutate({ id: new Date(), ...data });
   };
   useEffect(() => {
-    console.log("An error has occurred", error?.response.data.error);
-  }, [error]);
+    if (isSuccess) {
+      console.log("success");
+      navigate(clientRoutes.login);
+    }
+  }, [isSuccess]);
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col w-96">
       <UIFormInput
@@ -107,7 +81,7 @@ const SignUpForm = () => {
         errors={errors}
         type="password"
       />
-      <UIButton size="sm" variant="details" type="submit">
+      <UIButton size="sm" variant="details" type="submit" isLoading={isPending}>
         Submit
       </UIButton>
       <ErrorTextForm error={error}>{error?.response.data.error}</ErrorTextForm>

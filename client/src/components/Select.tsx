@@ -21,7 +21,7 @@ const Select: FC<ISelectProps> = ({ value, onChange, children }) => {
 
   function handleClick() {
     setOpen(!isOpen);
-      console.log(isOpen);
+    console.log(isOpen);
   }
 
   return (

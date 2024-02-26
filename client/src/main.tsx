@@ -6,15 +6,12 @@ import PTest from "./PTest";
 import VTest from "./VTest";
 import { Provider } from "react-redux";
 import store from "./store";
-import ProductsLayout from "./pages/ProductsLayout";
 import { clientRoutes } from "./routes";
-import {
-  QueryClient,
-  QueryClientProvider,
-  useQuery,
-} from "@tanstack/react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import SignUpPage from "./pages/sign-up-page";
 import LoginPage from "./pages/login-page";
+import ProductsPage from "./pages/products-page";
+import BasketPage from "./pages/basket-page";
 
 const queryClient = new QueryClient();
 
@@ -34,7 +31,7 @@ const router = createBrowserRouter([
       },
       {
         path: clientRoutes.products,
-        element: <ProductsLayout />,
+        element: <ProductsPage />,
       },
       {
         path: clientRoutes.products + "/:id",
@@ -42,7 +39,7 @@ const router = createBrowserRouter([
       },
       {
         path: clientRoutes.basket,
-        element: <div>basket</div>,
+        element: <BasketPage />,
       },
       {
         path: clientRoutes.delivery,
@@ -51,6 +48,10 @@ const router = createBrowserRouter([
       {
         path: clientRoutes.favorite,
         element: <div>favorite</div>,
+      },
+      {
+        path: clientRoutes.profile,
+        element: <div>profile</div>,
       },
       {
         path: "/p",

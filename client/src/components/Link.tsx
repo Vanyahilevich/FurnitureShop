@@ -8,7 +8,10 @@ interface ILinkProps {
 
 const Link: FC<ILinkProps> = memo(({ children, to }: ILinkProps) => {
   return (
-    <LinkRouters to={to} className="">
+    <LinkRouters
+      to={to}
+      className="text-sm  text-beigeHover transition-colors hover:text-lightBlue "
+    >
       {children}
     </LinkRouters>
   );

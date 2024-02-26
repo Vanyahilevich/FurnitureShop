@@ -1,11 +1,14 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import UIButton from "src/ui-kit/UIButton";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
 import UIFormInput from "src/ui-kit/UIFormInput";
-import { serverRoutes } from "src/routes";
+import { clientRoutes, serverRoutes } from "src/routes";
 import axios from "axios";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { schema } from "./validate-login-form";
+import { useEffect } from "react";
+import { useNavigate } from "react-router";
+import { ErrorTextForm } from "src/ui-kit/ui-error-text-form";
 
 type Inputs = {
   name: string;
@@ -15,11 +18,6 @@ type Inputs = {
   confirmPassword: string;
 };
 
-const schema = yup.object({
-  email: yup.string().email().required("Email is required"),
-  password: yup.string().min(3).required("Password is required"),
-});
-
 const LoginForm = () => {
   const {
     register,
@@ -28,34 +26,49 @@ const LoginForm = () => {
   } = useForm({
     resolver: yupResolver(schema),
   });
+  const queryClient = useQueryClient();
+
+  const navigate = useNavigate();
   const { mutate, isSuccess, isPending, isError, error } = useMutation({
+    mutationKey: ["auth"],
     mutationFn: (data: any) => {
       return axios.post(serverRoutes.login, data, { withCredentials: true });
     },
+    onSuccess: () => {
+      queryClient.refetchQueries(["auth"]);
+      queryClient.invalidateQueries({ queryKey: ["auth"] });
+    },
   });
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    console.log("12");
     mutate(data);
   };
+  useEffect(() => {
+    if (isSuccess) {
+      navigate(clientRoutes.products);
+    }
+  }, [isSuccess]);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col w-96">
       <UIFormInput
+        defaultValue={"vanyahilevich@gmail.com"}
         name={"email"}
         placeholder="Enter Email"
         register={{ ...register("email") }}
         errors={errors}
       />
       <UIFormInput
+        defaultValue={"123"}
         name={"password"}
         placeholder="Enter Password"
         register={{ ...register("password") }}
         errors={errors}
         type="password"
       />
-      <UIButton size="sm" variant="details" type="submit">
+      <UIButton size="sm" variant="details" type="submit" isLoading={isPending}>
         Submit
       </UIButton>
+      <ErrorTextForm error={error}>{error?.response.data.error}</ErrorTextForm>
     </form>
   );
 };

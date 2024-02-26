@@ -7,6 +7,7 @@ export const clientRoutes ={
     basket: "/basket",
     delivery: "/delivery",
     favorite: "/favorite",
+    profile: "/profile",
 }
 const base = "http://localhost:5000/api";
 
@@ -18,4 +19,7 @@ export const serverRoutes = {
     updateProduct: base + "/products/updateProducts", 
     signup: base + "/auth/signup",
     login: base + "/auth/login",
+    auth: base + "/auth/auth",
+    logout: base + "/auth/logout",
+    basket: base + "/basket"
   };
