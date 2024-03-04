@@ -7,10 +7,10 @@ interface IHeaderLayoutProps {
 }
 const HeaderLayout: FC<IHeaderLayoutProps> = ({ logo, links, actions }) => {
   return (
-    <div className="flex items-center min-h-8">
+    <div className="flex items-center py-2 pr-1 gap-10">
       <div className="w-20 h-6">{logo}</div>
-      <div className="ml-40  mr-auto flex items-center gap-4">{links}</div>
-      <div className="flex items-center gap-2"> {actions}</div>
+      <div className="flex mr-auto items-center gap-4">{links}</div>
+      <div className="flex items-center gap-3"> {actions}</div>
     </div>
   );
 };

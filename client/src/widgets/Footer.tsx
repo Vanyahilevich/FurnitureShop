@@ -1,16 +1,16 @@
 import React from "react";
 import Logo from "./Header/Logo";
-import FacebookButton from "../shared/FacebookButton";
-import YouTubeButton from "../shared/YouTubeButton";
-import VKButton from "../shared/VKButton";
-import InstagramButton from "../shared/InstagramButton";
+import FacebookButton from "../shared/facebook-button";
+import YouTubeButton from "../shared/youtube-button";
+import VKButton from "../shared/vk-button";
+import InstagramButton from "../shared/Instagram-button";
 import { Link } from "react-router-dom";
-import UIInput from "../ui-kit/UIInput";
-import UIButton from "../ui-kit/UIButton";
+import UIInput from "../ui-kit/ui-Input";
+import UIButton from "../ui-kit/ui-button";
 
 const Footer = () => {
   return (
-    <div className="text-darkBlueClick flex justify-between font-light">
+    <div className=" text-md text-darkBlueClick flex justify-between font-light pb-10">
       <div className="text-base font-normal flex flex-col gap-y-6">
         <Logo className="w-20 mb-auto" />
         <div className="w-72">
@@ -24,27 +24,27 @@ const Footer = () => {
           <InstagramButton />
         </div>
       </div>
-      <div className="text-2xl flex flex-col gap-y-5">
+      <div className=" flex flex-col gap-y-5">
         <Link to={"###"} className="mb-auto">
           Menu
         </Link>
-        <Link to={"###"}>products</Link>
-        <Link to={"###"}>about us</Link>
-        <Link to={"###"}>contact</Link>
+        <Link to={"###"}>Products</Link>
+        <Link to={"###"}>About us</Link>
+        <Link to={"###"}>Contact</Link>
       </div>
-      <div className="text-2xl flex flex-col gap-y-5">
+      <div className=" flex flex-col gap-y-5">
         <Link to={"###"} className="mb-auto">
           Additional menu
         </Link>
-        <Link to={"###"}>blog</Link>
-        <Link to={"###"}>payment and delivery</Link>
-        <Link to={"###"}>privacy policy</Link>
+        <Link to={"###"}>Blog</Link>
+        <Link to={"###"}>Payment and delivery</Link>
+        <Link to={"###"}>Privacy policy</Link>
       </div>
-      <div className="text-2xl flex flex-col max-w-72 gap-y-5">
+      <div className=" flex flex-col max-w-72 gap-y-5">
         <div className="mb-auto">
           Subscribe to notifications about new items
         </div>
-        <UIInput variant="subscribe" placeholder="Your e-mail" />
+        <UIInput variant="subscribe" placeholder="Your e-mail" value={""} />
         <UIButton size={"md"} variant="details">
           Subscribe
         </UIButton>

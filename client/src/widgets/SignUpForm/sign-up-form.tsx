@@ -1,14 +1,15 @@
 import { useForm, SubmitHandler } from "react-hook-form";
-import UIButton from "src/ui-kit/UIButton";
 import { yupResolver } from "@hookform/resolvers/yup";
-import UIFormInput from "src/ui-kit/UIFormInput";
+import UIFormInput from "src/ui-kit/ui-form-input";
 import { useMutation } from "@tanstack/react-query";
 import { clientRoutes, serverRoutes } from "src/routes";
 import axios from "axios";
-import { schema } from "./validateSchema";
+import { schema } from "./validate-signup-schema";
 import { ErrorTextForm } from "../../ui-kit/ui-error-text-form";
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { redirect, useNavigate } from "react-router-dom";
+import UISubmitButton from "src/ui-kit/ui-submit-button";
+import { useSignUp } from "src/services/auth";
 
 type Inputs = {
   name: string;
@@ -26,20 +27,15 @@ const SignUpForm = () => {
   } = useForm({
     resolver: yupResolver(schema),
   });
-  const navigate = useNavigate();
-  const { mutate, isSuccess, isPending, isError, error } = useMutation({
-    mutationKey: ["auth"],
-    mutationFn: (data: any) => {
-      return axios.post(serverRoutes.signup, data);
-    },
-  });
+
+  const { mutate: signUp, isSuccess, isPending, error } = useSignUp();
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    mutate({ id: new Date(), ...data });
+    signUp(data);
   };
+
   useEffect(() => {
     if (isSuccess) {
-      console.log("success");
-      navigate(clientRoutes.login);
+      redirect(clientRoutes.login);
     }
   }, [isSuccess]);
   return (
@@ -81,10 +77,15 @@ const SignUpForm = () => {
         errors={errors}
         type="password"
       />
-      <UIButton size="sm" variant="details" type="submit" isLoading={isPending}>
+      <UISubmitButton
+        size="sm"
+        variant="details"
+        type="submit"
+        isLoading={isPending}
+      >
         Submit
-      </UIButton>
-      <ErrorTextForm error={error}>{error?.response.data.error}</ErrorTextForm>
+      </UISubmitButton>
+      <ErrorTextForm error={error}>{error?.message}</ErrorTextForm>
     </form>
   );
 };

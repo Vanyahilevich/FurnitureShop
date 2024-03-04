@@ -2,16 +2,16 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App";
 import { createRoot } from "react-dom/client";
 import "./index.css";
-import PTest from "./PTest";
-import VTest from "./VTest";
-import { Provider } from "react-redux";
-import store from "./store";
+import PTest from "./pages/PTest";
 import { clientRoutes } from "./routes";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import SignUpPage from "./pages/sign-up-page";
-import LoginPage from "./pages/login-page";
-import ProductsPage from "./pages/products-page";
-import BasketPage from "./pages/basket-page";
+import SignUpPage from "./pages/signup-page/signup-page";
+import LoginPage from "./pages/login-page/login-page";
+import ProductsPage from "./pages/product-page/products-page";
+import BasketPage from "./pages/basket/basket-page";
+import DeliveryPage from "./pages/delivery/delivery-page";
+import ErrorPage from "./pages/error-page";
+import VTest from "./pages/VTest";
 
 const queryClient = new QueryClient();
 
@@ -19,7 +19,7 @@ const router = createBrowserRouter([
   {
     path: clientRoutes.home,
     element: <App />,
-    errorElement: <div>Occurred error</div>,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: clientRoutes.login,
@@ -43,7 +43,7 @@ const router = createBrowserRouter([
       },
       {
         path: clientRoutes.delivery,
-        element: <div>delivery</div>,
+        element: <DeliveryPage />,
       },
       {
         path: clientRoutes.favorite,
@@ -69,10 +69,8 @@ const root = createRoot(document.getElementById("root") as HTMLElement);
 
 root.render(
   <QueryClientProvider client={queryClient}>
-    <Provider store={store}>
-      <RouterProvider router={router}>
-        <App />
-      </RouterProvider>
-    </Provider>
+    <RouterProvider router={router}>
+      <App />
+    </RouterProvider>
   </QueryClientProvider>,
 );

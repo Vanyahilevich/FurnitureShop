@@ -1,11 +1,8 @@
-import React, { FC, MouseEvent } from "react";
-import CardName from "./CardName";
-import CardPrice from "./CardPrice";
+import { FC } from "react";
 import CardLayout from "./CardLayout";
-import AddToBasketButton from "../../shared/AddToBasketButton";
-import AddToFavoriteButton from "../../shared/AddToFavoriteButton";
-import { useNavigate } from "react-router-dom";
-import { clientRoutes } from "src/routes";
+import AddToBasketButton from "../../shared/add-product-in-basket-button";
+import AddToFavoriteButton from "../../shared/add-product-in-favorite-button";
+import { useAddProductTobasket } from "src/services/basket-api";
 
 interface IProductCardProps {
   id: string;
@@ -13,8 +10,8 @@ interface IProductCardProps {
   price: number;
   src: string;
   currency: string;
-  addToBasket: (e: MouseEvent<HTMLButtonElement>) => void;
-  addToFavorite: (e: MouseEvent<HTMLButtonElement>) => void;
+  quantity: number;
+  highlightSearchText: string;
 }
 
 const ProductCard: FC<IProductCardProps> = ({
@@ -23,31 +20,31 @@ const ProductCard: FC<IProductCardProps> = ({
   price,
   currency,
   src,
-  addToBasket,
-  addToFavorite,
+  quantity,
+  highlightSearchText,
 }) => {
-  const navigate = useNavigate();
-  const handleClickProduct = () => {
-    navigate(clientRoutes.product + id);
-  };
+  const { mutate: addProductToBasket, error } = useAddProductTobasket();
+
+  const productAlredyInBasket = error?.message;
+
   return (
     <CardLayout
-      onClick={handleClickProduct}
+      id={id}
       imageSrc={src}
-      info={
-        <>
-          <CardName>{title}</CardName>
-          <CardPrice>
-            {currency} {price}
-          </CardPrice>
-        </>
-      }
+      title={title}
+      currency={currency}
+      price={price}
+      quantity={quantity}
+      highlightSearchText={highlightSearchText}
       actions={
         <>
-          <AddToBasketButton onClick={addToBasket} />
-          <AddToFavoriteButton onClick={addToFavorite} />
+          <AddToBasketButton
+            onClick={() => addProductToBasket({ id, quantity })}
+          />
+          <AddToFavoriteButton onClick={() => {}} />
         </>
       }
+      textError={productAlredyInBasket}
     />
   );
 };

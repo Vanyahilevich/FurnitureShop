@@ -1,5 +1,6 @@
 import clsx from "clsx";
 import { ReactNode } from "react";
+import useVisibility from "src/hooks/useVisibility";
 
 export const ErrorTextForm = ({
   error,
@@ -8,11 +9,12 @@ export const ErrorTextForm = ({
   error: Error | null;
   children: ReactNode;
 }) => {
+  const isVisible = useVisibility(error);
   return (
     <div
       className={clsx(
         "text-sm text-red-500 h-4 mt-1",
-        error ? "visible" : "invisible",
+        isVisible ? "visible" : "invisible",
       )}
     >
       {children}

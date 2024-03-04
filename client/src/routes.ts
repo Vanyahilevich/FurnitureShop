@@ -9,10 +9,11 @@ export const clientRoutes ={
     favorite: "/favorite",
     profile: "/profile",
 }
+
 const base = "http://localhost:5000/api";
 
 export const serverRoutes = {
-    base: "http://localhost:5000/api",
+    image: "http://localhost:5000/image/", 
     products: base + "/products?",
     product: base + "/products/",
     similarProducts: base + "/products/similar/",
@@ -21,5 +22,9 @@ export const serverRoutes = {
     login: base + "/auth/login",
     auth: base + "/auth/auth",
     logout: base + "/auth/logout",
-    basket: base + "/basket"
+    basket: base + "/basket",
+    purchase: base + "/basket/purchase",
+    delivery: base + "/delivery",
+    confirm: base + "/delivery/confirm",
+
   };

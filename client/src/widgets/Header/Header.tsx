@@ -1,50 +1,27 @@
-import React from "react";
-import Link from "../../components/Link";
+import Link from "../../ui-kit/ui-link";
 import HeaderLayout from "./header-layout";
 import Logo from "./Logo";
-import BasketButton from "../../shared/BasketButton";
-import FavoriteButton from "../../shared/FavoriteButton";
-import { clientRoutes, serverRoutes } from "src/routes";
+import BasketButton from "../../shared/basket-button";
+import FavoriteButton from "../../shared/favorite-button";
 import LoginButton from "src/shared/login-button";
 import ProfileButton from "src/shared/profile-button";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import axios from "axios";
 import LogoutButton from "src/shared/logout-button";
+import DeliveryButton from "src/shared/delivery-button";
+import { useGetProductsFromDelivery } from "src/services/delivery-api";
+import { useGetProductsFromBasket } from "src/services/basket-api";
+import { useAuth, useLogout } from "src/services/auth";
 
 const Header = () => {
-  const queryClient = useQueryClient();
-
-  const { data, isPending, error, isError, isSuccess } = useQuery({
-    queryKey: ["auth"],
-    queryFn: async () => {
-      const response = await axios.post(serverRoutes.auth, null, {
-        withCredentials: true,
-      });
-      console.log("response", response);
-      return response.data;
-    },
-  });
-  const { mutate } = useMutation({
-    mutationKey: ["auth"],
-    mutationFn: async () => {
-      await axios.post(serverRoutes.logout, null, { withCredentials: true });
-    },
-    onSuccess: () => {
-      queryClient.setQueryData(["auth"], null);
-      queryClient.refetchQueries(["auth"]);
-      queryClient.invalidateQueries({ queryKey: ["auth"] });
-    },
-  });
-
+  const { data: auth } = useAuth();
+  const { mutate: Logout } = useLogout();
+  const { data: productsFromBasket } = useGetProductsFromBasket();
+  const { data: productsFromDelivery } = useGetProductsFromDelivery();
   return (
     <HeaderLayout
       logo={<Logo />}
       links={
         <>
           <Link to={"/products"}>Products</Link>
-          <Link to={"/basket"}>Basket</Link>
-          <Link to={"/delivery"}>Delivery</Link>
-          <Link to={"/products/1"}> one products</Link>
           <Link to={"/v"}>test vanya</Link>
           <Link to={"/p"}>test pasha</Link>
         </>
@@ -52,9 +29,10 @@ const Header = () => {
       actions={
         <>
           <FavoriteButton />
-          <BasketButton />
-          {!data && <LoginButton />}
-          {data && <LogoutButton onClick={mutate} />}
+          <BasketButton badgeValue={productsFromBasket?.length} />
+          <DeliveryButton badgeValue={productsFromDelivery?.length} />
+          {!auth && <LoginButton />}
+          {auth && <LogoutButton onClick={Logout} />}
           <ProfileButton />
         </>
       }

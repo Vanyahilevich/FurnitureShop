@@ -1,8 +1,8 @@
 import React, { ChangeEvent, FC, useState } from "react";
-import SearchLayout from "./SearchLayout";
-import SearchButton from "./SearchButton";
-import CloseButton from "./CloseButton";
-import UIInput from "../ui-kit/UIInput";
+import SearchLayout from "./search-layout";
+import SearchButton from "./search-button";
+import CloseButton from "./close-search-button";
+import UIInput from "../ui-kit/ui-Input";
 
 interface ISearch {
   search: string;
