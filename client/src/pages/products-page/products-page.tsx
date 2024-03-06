@@ -1,8 +1,8 @@
 import { useReducer } from "react";
 import ProductsLayout from "./products-layout-page";
-import ProductCard from "src/widgets/Card/product-card";
+import ProductCard from "src/widgets/product-card/product-card";
 import Pagination from "src/widgets/pagination/Pagination";
-import ListProductCardSkeleton from "src/widgets/Card/product-card-skeleton";
+import ListProductCardSkeleton from "src/widgets/product-card/product-card-skeleton";
 import { useGetAllProducts } from "src/services/product-api";
 import useIsError from "src/hooks/useIsError";
 import SortSelect from "src/ui-kit/select/sort-select";
@@ -12,8 +12,8 @@ import ResetFilterButton from "src/shared/reser-filter-button";
 import { createQueryStringFromObject } from "src/utils/create-queryString-from-object";
 import VerticalViewButton from "src/shared/vertical-view-button";
 import HorizViewButton from "src/shared/horiz-view-button";
-import Search from "src/shared/Search";
 import { serverRoutes } from "src/routes";
+import Search from "src/shared/search";
 
 const initialFilter = {
   page: 1,
@@ -23,10 +23,19 @@ const initialFilter = {
   material: "",
   search: "",
 };
+const handleScrollToTop = () => {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth", // Добавляет плавность
+  });
+};
+
 const productsFilterReducer = (state, action) => {
   switch (action.type) {
-    case "setPage":
+    case "setPage": {
+      handleScrollToTop();
       return { ...state, page: action.page };
+    }
     case "setHorView":
       return { ...state, limit: 4, page: 1 };
     case "setVerView":
@@ -34,7 +43,7 @@ const productsFilterReducer = (state, action) => {
     case "resetSearch":
       return { ...state, search: "" };
     case "setSearch":
-      return { ...state, search: action.search };
+      return { ...state, search: action.search, page: 1 };
     case "setMaterial":
       return { ...state, material: action.material, page: 1 };
     case "setCategory":

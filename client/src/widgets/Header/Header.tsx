@@ -1,6 +1,5 @@
 import Link from "../../ui-kit/ui-link";
-import HeaderLayout from "./header-layout";
-import Logo from "./Logo";
+import Logo from "./logo";
 import BasketButton from "../../shared/basket-button";
 import FavoriteButton from "../../shared/favorite-button";
 import LoginButton from "src/shared/login-button";
@@ -10,6 +9,8 @@ import DeliveryButton from "src/shared/delivery-button";
 import { useGetProductsFromDelivery } from "src/services/delivery-api";
 import { useGetProductsFromBasket } from "src/services/basket-api";
 import { useAuth, useLogout } from "src/services/auth";
+import HeaderLayout from "./header-layout";
+import ProfileAvatar from "../profile-avatar/profile-avatar";
 
 const Header = () => {
   const { data: auth } = useAuth();
@@ -31,9 +32,12 @@ const Header = () => {
           <FavoriteButton />
           <BasketButton badgeValue={productsFromBasket?.length} />
           <DeliveryButton badgeValue={productsFromDelivery?.length} />
+        </>
+      }
+      auth={
+        <>
           {!auth && <LoginButton />}
-          {auth && <LogoutButton onClick={Logout} />}
-          <ProfileButton />
+          {auth && <ProfileAvatar />}
         </>
       }
     />

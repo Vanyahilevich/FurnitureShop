@@ -1,5 +1,5 @@
 import { FC } from "react";
-import CardLayout from "./CardLayout";
+import CardLayout from "./product-card-layout";
 import AddToBasketButton from "../../shared/add-product-in-basket-button";
 import AddToFavoriteButton from "../../shared/add-product-in-favorite-button";
 import { useAddProductTobasket } from "src/services/basket-api";

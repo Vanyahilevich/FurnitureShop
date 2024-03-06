@@ -3,7 +3,7 @@ import axios from "axios";
 import { serverRoutes } from "src/routes";
 import { DeliveryProductType, ProductType } from "src/types/product-type";
 
-export const useGetProductsFromDelivery = () => {
+export const useGetProductsFromDelivery = (userId?: string) => {
   return useQuery({
     queryKey: ["delivery"],
     queryFn: async (): Promise<DeliveryProductType[]> => {
@@ -12,6 +12,7 @@ export const useGetProductsFromDelivery = () => {
       });
       return response.data;
     },
+    enabled: !!userId,
   });
 };
 

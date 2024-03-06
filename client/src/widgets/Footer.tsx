@@ -1,5 +1,5 @@
 import React from "react";
-import Logo from "./Header/Logo";
+import Logo from "./header/logo";
 import FacebookButton from "../shared/facebook-button";
 import YouTubeButton from "../shared/youtube-button";
 import VKButton from "../shared/vk-button";
@@ -45,7 +45,7 @@ const Footer = () => {
           Subscribe to notifications about new items
         </div>
         <UIInput variant="subscribe" placeholder="Your e-mail" value={""} />
-        <UIButton size={"md"} variant="details">
+        <UIButton size={"sm"} variant="details">
           Subscribe
         </UIButton>
       </div>

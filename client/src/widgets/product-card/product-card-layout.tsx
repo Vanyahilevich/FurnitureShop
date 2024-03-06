@@ -4,6 +4,7 @@ import Link from "src/ui-kit/ui-link";
 import useVisibility from "src/hooks/useVisibility";
 import { clientRoutes } from "src/routes";
 import HighlightSearchText from "../highlight-search-text";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 interface ICardLayoutProps {
   id: string;
@@ -33,7 +34,7 @@ const CardLayout: FC<ICardLayoutProps> = ({
   return (
     <div
       className="
-      text-ellipsis 
+      text-ellipsis  truncate
       group/card relative  cursor-pointer
       sm:flex-grow-0 sm:flex-[calc((100%/2)-6px)] 
       md:flex-grow-0 md:flex-[calc((100%/2)-6px)] 
@@ -41,7 +42,7 @@ const CardLayout: FC<ICardLayoutProps> = ({
       "
     >
       <Link to={clientRoutes.product + id}>
-        <div className={clsx("relative h-56 overflow-hidden")}>
+        <div className={clsx("relative h-56 overflow-hidden bg-[#ECECEC]")}>
           {!hasProduct && (
             <div
               className="group/text absolute bottom-0 top-0 left-0 right-0 transition-all
@@ -61,14 +62,18 @@ const CardLayout: FC<ICardLayoutProps> = ({
           >
             {textError}
           </div>
-          <img
-            className=" w-full h-full object-cover object-center"
+          <LazyLoadImage
+            alt={title}
             src={imageSrc}
-            alt={"Light"}
+            style={{
+              minWidth: "100%",
+              minHeight: "100%",
+              objectFit: "cover",
+            }}
           />
         </div>
         <div className=" pt-2 text-ellipsis">
-          <h2 className="font-light text-black text-lg truncate ">
+          <h2 className="font-light text-black text-lg truncate">
             <HighlightSearchText
               text={title}
               highlightSearchText={highlightSearchText}

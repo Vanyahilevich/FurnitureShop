@@ -22,7 +22,7 @@ const Tooltip = ({
         className={clsx(
           `invisible text-xs absolute  my-3 left-1/2 transform
          -translate-x-1/2 bg-gray-800 text-white py-1 px-3
-          rounded whitespace-nowrap z-10
+          rounded whitespace-nowrap z-20
           group-hover/tooltip:visible
           `,
           mapDirection[direction || "bottom"],

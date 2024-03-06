@@ -5,10 +5,10 @@ import GetBackButton from "src/shared/get-back-button";
 
 const useIsAuth = () => {
   const { data: auth, isLoading } = useAuth();
-
   return {
     isLoading: isLoading,
     isAuthenticated: !!auth,
+    userId: auth?.id,
     authJSX: !auth ? (
       <div className="flex flex-col flex-auto items-center justify-center gap-10">
         <div className="text-2xl">You are not registered</div>

@@ -48,7 +48,7 @@ export const useLogin = () => {
       }
     },
     onSuccess: (data) => {
-      console.log("Login successful:", data);
+      // console.log("Login successful:", data);
       queryClient.invalidateQueries(["auth"]);
       queryClient.invalidateQueries(["basket"]);
       queryClient.invalidateQueries(["delivery"]);

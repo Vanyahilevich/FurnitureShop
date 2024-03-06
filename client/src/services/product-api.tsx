@@ -4,7 +4,7 @@ import { serverRoutes } from "src/routes";
 import { ProductsResponse } from "src/types/product-type";
 import pDebounce from "p-debounce";
 
-const fetchData = async (queryString) => {
+const fetchData = async (queryString: string) => {
   try {
     const response = await axios.get(serverRoutes.products + queryString);
     return response.data;
@@ -13,10 +13,10 @@ const fetchData = async (queryString) => {
   }
 };
 const debouncedFetchData = pDebounce(fetchData, 500);
-export const useGetAllProducts = (queryString) => {
+export const useGetAllProducts = (queryString: string) => {
   const query = useQuery({
     queryKey: ["products", queryString],
-    queryFn: async (): Promise<ProductsResponse> =>
+    queryFn: async ({ queryKey }): Promise<ProductsResponse> =>
       await debouncedFetchData(queryString),
   });
 

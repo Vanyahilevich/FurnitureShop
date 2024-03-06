@@ -6,8 +6,8 @@ import DeliveryLayoutPage from "./delivery-layout-page";
 import { serverRoutes } from "src/routes";
 
 const DeliveryPage = () => {
-  const { isAuthenticated, authJSX } = useIsAuth();
-  const { data: productsFromDelivery } = useGetProductsFromDelivery();
+  const { isAuthenticated, authJSX, userId } = useIsAuth();
+  const { data: productsFromDelivery } = useGetProductsFromDelivery(userId);
 
   if (!isAuthenticated) {
     return authJSX;

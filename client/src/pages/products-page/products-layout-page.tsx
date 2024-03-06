@@ -1,5 +1,5 @@
 import React, { FC, ReactElement, ReactNode, useEffect } from "react";
-import ProductCard from "../../widgets/Card/product-card";
+import ProductCard from "../../widgets/product-card/product-card";
 import { useQuery } from "@tanstack/react-query";
 import ChangeToHorButton from "../../shared/horiz-view-button";
 import ChangeToGroupButton from "../../shared/vertical-view-button";

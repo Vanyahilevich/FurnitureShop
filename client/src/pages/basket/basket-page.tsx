@@ -4,17 +4,16 @@ import {
   useGetProductsFromBasket,
   usePurchaseProducts,
 } from "src/services/basket-api";
-import { useAddProductsInDelivery } from "src/services/delivery-api";
 import UIButton from "src/ui-kit/ui-button";
 import BasketCard from "src/widgets/basket-card/basket-card";
 import EmptyContentBasket from "./empty-content-basket";
 import BasketLayoutPage from "./basket-layout-page";
-import { redirect, useNavigate } from "react-router-dom";
-import { clientRoutes, serverRoutes } from "src/routes";
+import { useNavigate } from "react-router-dom";
+import { serverRoutes } from "src/routes";
 
 const BasketPage = () => {
-  const { isAuthenticated, authJSX, isLoading } = useIsAuth();
-  const { data: productsFromBasket } = useGetProductsFromBasket();
+  const { isAuthenticated, authJSX, isLoading, userId } = useIsAuth();
+  const { data: productsFromBasket } = useGetProductsFromBasket(userId);
   const { mutate: deleteAllProductsFromBasket } =
     useDeleteAllProductsFromBasket();
   const { mutate: purchaseProducts } = usePurchaseProducts();
@@ -60,7 +59,7 @@ const BasketPage = () => {
             )}
         </>
       }
-      totalPrice={`Total: ${totalPrice}`}
+      totalPrice={`Total: $${totalPrice}`}
       actionDeleteButton={
         <UIButton
           onClick={() => deleteAllProductsFromBasket()}
