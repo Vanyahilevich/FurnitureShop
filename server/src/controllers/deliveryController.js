@@ -1,72 +1,79 @@
 const {ObjectId} = require("mongodb");
 
-const productRepository = require("../repositories/productRepository")
-const basketRepository = require("../repositories/basketRepository")
+const productsRepository = require("../repositories/productsRepository")
 const deliveryRepository = require("../repositories/deliveryRepository");
 
 
 const deliveryController = {
-  getAllProductInDelivery: async (req, res, next) => {
+  getProductsFromDelivery: async (req, res, next) => {
+    const user = req.user
     try {
-      const productsPointerInDelivery = await deliveryRepository.getAllProductsInDelivery(req.db, req.user._id)
-      const count = productsPointerInDelivery.length
-      console.log(productsPointerInDelivery)
+      const productsPointerInDelivery = await deliveryRepository.getAllProductsInDelivery(req.db, user.id);
+      const count = productsPointerInDelivery.length;
       if (count === 0) {
-        return res.status(200).json([])
+        return res.json([]);
       }
-
-      const AllProductsInDelivery = await Promise.all(
-        productsPointerInDelivery.map(item => {
-          return new Promise(async (resolve, reject) => {
-            try {
-              const result = await productRepository.getProductById(req.db, item.productId)
-              result.size = item.size
-              result.count = item.count
-              result.date = item.date
-              if (result) {
-                resolve(result);
-              } else {
-                reject('Ошибка выполнения операции');
-              }
-            } catch (error) {
-              throw new Error(error)
-            }
-          });
-        }))
-      res.json({products: AllProductsInDelivery, count: count})
+  
+      const allProductsInDelivery = await Promise.all(
+        productsPointerInDelivery.map(async (item) => {
+          try {
+            const result = await productsRepository.getProductById(req.db, item.productId);
+            result.quantity = item.quantity;
+            result.creationDateMillis = item.creationDateMillis
+            result.deliveryDateMillis = item.deliveryDateMillis
+            return result;
+          } catch (error) {
+            throw new Error(error);
+          }
+        })
+      );
+  
+      res.json(allProductsInDelivery );
     } catch (error) {
-      next(error)
+      next(error);
     }
   },
 
-  addProductToDelivery: async (req, res, next) => {
-    try {
-      const products = req.body
-      const user = req.user
-      const date = Date.now()
-      await Promise.all(products.map(product => {
-        return deliveryRepository.addNewProductToDelivery(req.db, user, product._id, product.size, product.count, date)
-      }))
-      res.status(200).json({message: "Good"})
-    } catch (error) {
-      next(error)
-    }
 
-
+  addProductsToDelivery: async (req, res, next) => {
+    // try {
+    //   const products = req.body
+    //   const user = req.user
+    //   const creationDate = Date.now()
+    //   await Promise.all(products.map(product => {
+    //     return deliveryRepository.addNewProductToDelivery(req.db, user.id, product.id, product.quantity, creationDate)
+    //   }))
+    //   res.status(200).json({message: "Good"})
+    // } catch (error) {
+    //   next(error)
+    // }
   },
 
-  deleteProductInDelivery: async (req, res, next) => {
+  deleteProductFromDelivery: async (req, res, next) => {
+    
     try {
-      const product = req.body
-      console.log("delete, prod", product)
+      const {id:productId, creationDateMillis} = req.params
       const user = req.user
-      console.log("delete", req.body)
-      await deliveryRepository.deleteProductInDelivery(req.db, user, product._id, product.size, product.date)
+      await deliveryRepository.deleteProductInDelivery(req.db, user.id, productId, creationDateMillis)
       res.status(200).json({})
     } catch (error) {
       next(error)
     }
-  }
+  },
+  confirmDelivery: async (req, res, next) => {
+    try {
+      const user = req.user
+      const {id:productId} = req.params
+      const {creationDateMillis, quantity} = req.body
+      await deliveryRepository.deleteProductInDelivery(req.db, user.id, productId, creationDateMillis)
+      await productsRepository.deleteProduct(req.db, productId, quantity)
+      res.status(200).json({})
+    } catch (error) {
+      next(error)
+    }
+  },
+
+
 
 
 }

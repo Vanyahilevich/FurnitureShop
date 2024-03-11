@@ -3,61 +3,73 @@ const {ObjectId} = require("mongodb");
 const basketRepository = {
 
   getAllProductInBasket: async (db, userId) => {
-    console.log("bdbasket")
-    const basket = await db.collection("basket").findOne({user_id: new ObjectId(userId)})
+    const basket = await db.collection("basket").findOne({userId: userId})
     return basket.items
   },
   createBasket: async (db, id) => {
     return await db.collection("basket").insertOne({
-      user_id: id,
+      userId: id,
       items: [],
       created_at: new Date(),
     })
   },
-  findProductInBasket: async (db, id, size, user) => {
+  findProductInBasket: async (db, id, userId) => {
     console.log("findProductInBasket")
 
     return db.collection("basket").findOne({
-      user_id: user._id,
+      userId: userId,
       'items': {
         $elemMatch: {
-          product_id: new ObjectId(id),
-          size: size,
+          productId: id, 
         }
       },
     })
   },
-  addNewProductToBasket: async (db, newProduct, user) => {
-    console.log("sadas")
+  addNewProductToBasket: async (db, newProduct, userId) => {
     await db.collection("basket")
       .updateOne(
-        {user_id: user._id},
+        {userId: userId},
         {$push: {items: newProduct}}
       )
   },
-  updateExistProductToBasket: async (db, id, size, user, operation, count) => {
-    console.log("updateExistProductToBasket")
+  increaseProductInBasket: async (db, userId, productId) => {
     return await db.collection("basket").updateOne(
       {
-        user_id: user._id,
+        userId: userId,
         'items': {
           $elemMatch: {
-            product_id: new ObjectId(id),
-            size: size,
-            quantity: operation === 1 ? {$lt: count} : {$gt: 1}
+            productId: productId,
           }
         },
       },
-      {$inc: {'items.$.quantity': operation === 1 ? 1 : -1}}
+      {$inc: {'items.$.quantity': 1 }}
+    );
+  },
+  decreaseProductInBasket: async (db, userId, productId) => {
+    return await db.collection("basket").updateOne(
+      {
+        userId: userId,
+        'items': {
+          $elemMatch: {
+            productId: productId,
+          }
+        },
+      },
+      {$inc: {'items.$.quantity': -1}}
     );
   },
 
-  deleteProductInBasket: async (db, user, productId, size) => {
-    console.log("deleteProduct", productId)
+  deleteProductFromBasket: async (db, userId, productId,) => {
     await db.collection("basket").updateOne(
-      {user_id: user._id},
-      {$pull: {"items": {"size": size, "product_id": new ObjectId(productId)}}}
+      {userId: userId},
+      {$pull: {"items": { "productId": productId}}}
     );
-  }
+  },
+  deleteAllProductFromBasket: async (db, userId) => {
+    await db.collection("basket").updateOne(
+      {userId: userId},
+      {$set: {"items": []}}
+    );
+  },
 }
 module.exports = basketRepository
