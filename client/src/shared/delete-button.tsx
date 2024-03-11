@@ -4,13 +4,11 @@ import IconButton from "./icon-button";
 import { IoIosCloseCircle } from "react-icons/io";
 
 interface IDeleteButtonProps {
-  title: string;
   className?: string;
   onClick?: () => void;
 }
 
 const DeleteButton: FC<IDeleteButtonProps> = ({
-  title,
   className,
   onClick = () => {},
 }) => {

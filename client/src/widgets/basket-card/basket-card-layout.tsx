@@ -29,9 +29,9 @@ const BasketCardLayout: FC<IBasketCardProps> = ({
   return (
     <div
       className="group/basketCard  transition-all 
-      relative flex flex-auto w-3/4 gap-10 text-lg max-h-40 items-center"
+      relative flex flex-auto w-full gap-10 text-lg max-h-40 items-center"
     >
-      <div className="max-w-60 max-h-full overflow-hidden">
+      <div className="w-60 h-full overflow-hidden bg-[#ebebeb]">
         <Link to={clientRoutes.product + id}>
           <div className="w-full  h-full  bg-slate-300 cursor-pointer">
             <img

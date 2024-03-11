@@ -5,11 +5,10 @@ const ProductCardSkeleton = ({}) => {
     <div
       className="
       flex flex-col
-      
       cursor-pointer
-      sm:flex-grow-0 sm:flex-[calc((100%/2)-6px)] 
-      md:flex-grow-0 md:flex-[calc((100%/2)-6px)] 
-      lg:flex-grow-0 lg:flex-[calc((100%/3)-8px)]
+      sm:min-w-[calc((100%/2)-6px)]
+      md:min-w-[calc((100%/2)-6px)]
+      lg:min-w-[calc((100%/3)-8px)]
       "
     >
       <Skeleton height={218} />

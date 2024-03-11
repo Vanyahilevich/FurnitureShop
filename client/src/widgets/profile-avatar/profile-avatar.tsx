@@ -1,4 +1,4 @@
-import { clientRoutes } from "src/routes";
+import { clientRoutes, serverRoutes } from "src/routes";
 import ProfileAvatarIcon from "./icons/profile-avatar-icon";
 import SettingAvatarIcon from "./icons/setting-avatar-icon";
 import DownloadAvatarIcon from "./icons/download-avatar-icon";
@@ -42,18 +42,17 @@ const ProfileAvatar = () => {
       onClick: () => Logout(),
     },
   ];
+  const imageSrc = serverRoutes.imageAvatar + auth.imageURL;
   return (
     <ProfileAvatarLayout
-      avatar={
-        auth?.image ? <UserAvatar imageSrc={auth.image} /> : <ProfileButton />
-      }
+      avatar={imageSrc ? <UserAvatar imageSrc={imageSrc} /> : <ProfileButton />}
       items={links}
       header={
         <InfoProfile
           name={auth?.name}
           surname={auth?.surname}
           email={auth?.email}
-          imageSrc={undefined}
+          imageSrc={imageSrc}
         />
       }
     ></ProfileAvatarLayout>

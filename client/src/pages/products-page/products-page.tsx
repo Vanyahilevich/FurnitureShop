@@ -60,9 +60,9 @@ const ProductsPage = () => {
   const [filter, dispatch] = useReducer(productsFilterReducer, initialFilter);
   const queryString = createQueryStringFromObject(filter) ?? "";
 
-  const { data, isLoading, error, isSuccess, isError } =
+  const { data, isLoading, error, isSuccess, isError, isPlaceholderData } =
     useGetAllProducts(queryString);
-
+  console.log(isPlaceholderData);
   if (isError) {
     return useIsError(error);
   }
@@ -70,6 +70,8 @@ const ProductsPage = () => {
   return (
     <>
       <ProductsLayout
+        hasNotProducts={hasNotProducts}
+        isPlaceholderData={isPlaceholderData}
         filter={
           <>
             <SortSelect
@@ -108,7 +110,6 @@ const ProductsPage = () => {
             />
           </>
         }
-        hasNotProducts={hasNotProducts}
         products={
           <>
             {isLoading ? (

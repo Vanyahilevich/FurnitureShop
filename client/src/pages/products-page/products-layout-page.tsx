@@ -12,6 +12,7 @@ interface IProductsLayoutProps {
   products: ReactElement;
   resetButton: ReactElement;
   hasNotProducts: boolean;
+  isPlaceholderData: boolean;
 }
 
 const ProductsLayout: FC<IProductsLayoutProps> = ({
@@ -21,6 +22,7 @@ const ProductsLayout: FC<IProductsLayoutProps> = ({
   products,
   resetButton,
   hasNotProducts,
+  isPlaceholderData,
 }) => {
   return (
     <div className="grid grid-cols-4 gap-8 w-full">
@@ -37,7 +39,14 @@ const ProductsLayout: FC<IProductsLayoutProps> = ({
           </div>
         )}
 
-        <div className="flex flex-auto gap-3 flex-wrap">{products}</div>
+        <div
+          className={clsx(
+            isPlaceholderData && "opacity-50",
+            "flex flex-auto gap-3 flex-wrap",
+          )}
+        >
+          {products}
+        </div>
         <div className="self-end flex  gap-3">{pagination}</div>
       </div>
     </div>

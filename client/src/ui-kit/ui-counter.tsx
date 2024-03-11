@@ -18,11 +18,7 @@ const UICounter: FC<IUICounterProps> = ({
       <Tooltip title={"Remove product"}>
         <button
           disabled={disabled}
-          onClick={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            decrement();
-          }}
+          onClick={decrement}
           className="w-8  text-slate-50 bg-darkBlueClick hover:bg-darkBlueHover active:bg-darkBlue"
         >
           -
@@ -34,11 +30,7 @@ const UICounter: FC<IUICounterProps> = ({
       <Tooltip title={"Add product"}>
         <button
           disabled={disabled}
-          onClick={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            increment();
-          }}
+          onClick={increment}
           className="w-8 text-slate-50 bg-darkBlueClick hover:bg-darkBlueHover active:bg-darkBlue"
         >
           +

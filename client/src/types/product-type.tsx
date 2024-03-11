@@ -17,4 +17,7 @@ export type ProductType = {
   rating: number;
 };
 
-export type DeliveryProductType = ProductType & { creationDate: number };
+export type DeliveryProductType = ProductType & {
+  creationDateMillis: number;
+  deliveryDateMillis: number;
+};

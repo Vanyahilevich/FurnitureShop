@@ -107,37 +107,41 @@ export const useDeleteProductFromBasket = () => {
     },
   });
 };
-export const useUpdateCountProductInBasket = () => {
-  const queryClient = useQueryClient();
-  return useMutation({
-    mutationKey: ["basket"],
-    mutationFn: async ({ id, operation, count }: any) => {
-      await axios.put(
-        `${serverRoutes.basket}/${id}`,
-        { operation, count },
-        {
-          withCredentials: true,
-        },
-      );
-    },
-    onSettled: async () => {
-      return await queryClient.invalidateQueries({ queryKey: ["basket"] });
-    },
-  });
-};
+// export const useUpdateCountProductInBasket = () => {
+//   const queryClient = useQueryClient();
+//   return useMutation({
+//     mutationKey: ["basket"],
+//     mutationFn: async ({ id, operation, count }: any) => {
+//       await axios.put(
+//         `${serverRoutes.basket}/${id}`,
+//         { operation, count },
+//         {
+//           withCredentials: true,
+//         },
+//       );
+//     },
+//     onSettled: async () => {
+//       return await queryClient.invalidateQueries({ queryKey: ["basket"] });
+//     },
+//   });
+// };
 
 export const useIncreaseQuantityProductInBasket = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationKey: ["basket"],
     mutationFn: async ({ id, quantity }: any) => {
-      await axios.put(
-        `${serverRoutes.basketIncrease}/${id}`,
-        { quantity },
-        {
-          withCredentials: true,
-        },
-      );
+      try {
+        await axios.put(
+          `${serverRoutes.basketIncrease}/${id}`,
+          { quantity },
+          {
+            withCredentials: true,
+          },
+        );
+      } catch (error) {
+        throw error.response.data;
+      }
     },
     onSettled: async () => {
       return await queryClient.invalidateQueries({ queryKey: ["basket"] });

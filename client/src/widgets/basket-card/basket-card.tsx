@@ -27,21 +27,25 @@ const BasketCard: FC<IBasketCardProps> = memo(
       error: errorIncreaseQuantity,
       variables: increaseVariables,
       isPending: increaseIsPending,
+      isSuccess: increaseIsSuccess,
     } = useIncreaseQuantityProductInBasket();
 
     const {
       mutate: decreaseQuantityProductInBasket,
       variables: decreaseVariables,
       isPending: decreaseIsPending,
+      isSuccess: decreaseIsSuccess,
     } = useDecreaseQuantityProductInBasket();
-
-    const optimicticQuantity = increaseIsPending
-      ? increaseVariables?.quantity
-      : decreaseVariables?.quantity || quantity;
+    let optimicticQuantity = quantity;
+    if (increaseIsPending) {
+      optimicticQuantity = increaseVariables.quantity;
+    }
+    if (decreaseIsPending) {
+      optimicticQuantity = Math.max(decreaseVariables.quantity, 1);
+    }
 
     const totalPrice =
       currency + String((optimicticQuantity * price).toFixed(2));
-
     return (
       <BasketCardLayout
         id={id}
@@ -50,7 +54,7 @@ const BasketCard: FC<IBasketCardProps> = memo(
         price={price}
         currency={currency}
         imageSrc={imageSrc}
-        errorText={errorIncreaseQuantity?.response.data.error}
+        errorText={errorIncreaseQuantity?.error}
         conter={
           <UICounter
             disabled={decreaseIsPending || increaseIsPending}
@@ -70,10 +74,7 @@ const BasketCard: FC<IBasketCardProps> = memo(
           />
         }
         deleteAction={
-          <DeleteButton
-            onClick={() => deleteProductFromBasket(id)}
-            title={"Delete product"}
-          />
+          <DeleteButton onClick={() => deleteProductFromBasket(id)} />
         }
       />
     );

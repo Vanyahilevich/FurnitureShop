@@ -10,7 +10,7 @@ const HighlightSearchText = React.memo(
   }) => {
     const parts = text.split(new RegExp(`(${highlightSearchText})`, "gi"));
     return (
-      <span>
+      <span className="overflow-hidden truncate">
         {parts.map((part, i) =>
           part.toLowerCase() === highlightSearchText.toLowerCase() ? (
             <mark key={i}>{part}</mark>

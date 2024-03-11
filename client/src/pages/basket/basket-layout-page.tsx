@@ -2,7 +2,7 @@ import { FC, ReactNode } from "react";
 
 interface IBasketLayoutPageProps {
   products: ReactNode;
-  totalPrice: string;
+  totalPrice: string | boolean;
   actionDeleteButton: ReactNode;
   actionBuyButton: ReactNode;
 }

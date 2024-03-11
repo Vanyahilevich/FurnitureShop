@@ -1,9 +1,11 @@
 import React, { FC } from "react";
 import DeliveryCardLayout from "./delivery-card-layout";
+import { DateTime } from "luxon";
 import {
   useConfirmProductFromDelivery,
   useDeleteProductFromDelivery,
 } from "src/services/delivery-api";
+import { useFormattedDate } from "src/hooks/useFormattedDate";
 
 interface IDeliveryCardProps {
   id: string;
@@ -12,7 +14,8 @@ interface IDeliveryCardProps {
   quantity: number;
   currency: string;
   imageSrc: string;
-  creationDate: number;
+  creationDateMillis: number;
+  deliveryDateMillis: number;
 }
 const DeliveryCard: FC<IDeliveryCardProps> = ({
   id,
@@ -21,10 +24,15 @@ const DeliveryCard: FC<IDeliveryCardProps> = ({
   quantity,
   currency,
   imageSrc,
-  creationDate,
+  creationDateMillis,
+  deliveryDateMillis,
 }) => {
   const { mutate: deleteProductFromDelivery } = useDeleteProductFromDelivery();
   const { mutate: confirmDeliveryProduct } = useConfirmProductFromDelivery();
+  const { creationDate, deliveryDate, timeDifference } = useFormattedDate(
+    creationDateMillis,
+    deliveryDateMillis,
+  );
   return (
     <DeliveryCardLayout
       id={id}
@@ -34,14 +42,16 @@ const DeliveryCard: FC<IDeliveryCardProps> = ({
       currency={currency}
       imageSrc={imageSrc}
       creationDate={creationDate}
+      deliveryDate={deliveryDate}
+      timeDifference={timeDifference}
       handleCancelDelivery={() => {
-        deleteProductFromDelivery({ id, creationDate });
+        console.log(creationDateMillis);
+        deleteProductFromDelivery({ id, creationDateMillis });
       }}
       handleConfirmDelivery={() => {
-        confirmDeliveryProduct({ id, creationDate, quantity });
+        confirmDeliveryProduct({ id, creationDateMillis, quantity });
       }}
     />
   );
 };
-
 export default DeliveryCard;

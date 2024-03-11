@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { serverRoutes } from "src/routes";
 import { ProductsResponse } from "src/types/product-type";
@@ -16,8 +16,10 @@ const debouncedFetchData = pDebounce(fetchData, 500);
 export const useGetAllProducts = (queryString: string) => {
   const query = useQuery({
     queryKey: ["products", queryString],
-    queryFn: async ({ queryKey }): Promise<ProductsResponse> =>
-      await debouncedFetchData(queryString),
+    queryFn: async ({ queryKey }): Promise<ProductsResponse> => {
+      return await debouncedFetchData(queryString);
+    },
+    placeholderData: keepPreviousData,
   });
 
   return query;

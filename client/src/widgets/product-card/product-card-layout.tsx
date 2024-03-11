@@ -34,12 +34,11 @@ const CardLayout: FC<ICardLayoutProps> = ({
   return (
     <div
       className="
-      text-ellipsis  truncate
       group/card relative  cursor-pointer
-      sm:flex-grow-0 sm:flex-[calc((100%/2)-6px)] 
-      md:flex-grow-0 md:flex-[calc((100%/2)-6px)] 
-      lg:flex-grow-0 lg:flex-[calc((100%/3)-8px)]
-      "
+     sm:w-[calc((100%/2)-6px)]
+     md:w-[calc((100%/2)-6px)]
+     lg:w-[calc((100%/3)-8px)]
+    "
     >
       <Link to={clientRoutes.product + id}>
         <div className={clsx("relative h-56 overflow-hidden bg-[#ECECEC]")}>
@@ -83,19 +82,19 @@ const CardLayout: FC<ICardLayoutProps> = ({
             {currency} {price}
           </h2>
         </div>
-        {hasProduct && (
-          <div
-            className="
+      </Link>
+      {hasProduct && (
+        <div
+          className="
         bg-blue-200  opacity-0 transition duration-300
-        absolute top-0 right-0
+        absolute top-0 right-0 z-10
         group-hover/card:opacity-100 
         flex gap-2 px-2 py-1 items-center
         "
-          >
-            {actions}
-          </div>
-        )}
-      </Link>
+        >
+          {actions}
+        </div>
+      )}
     </div>
   );
 };

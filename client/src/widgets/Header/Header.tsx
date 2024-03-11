@@ -15,16 +15,14 @@ import ProfileAvatar from "../profile-avatar/profile-avatar";
 const Header = () => {
   const { data: auth } = useAuth();
   const { mutate: Logout } = useLogout();
-  const { data: productsFromBasket } = useGetProductsFromBasket();
-  const { data: productsFromDelivery } = useGetProductsFromDelivery();
+  const { data: productsFromBasket } = useGetProductsFromBasket(auth?.id);
+  const { data: productsFromDelivery } = useGetProductsFromDelivery(auth?.id);
   return (
     <HeaderLayout
       logo={<Logo />}
       links={
         <>
           <Link to={"/products"}>Products</Link>
-          <Link to={"/v"}>test vanya</Link>
-          <Link to={"/p"}>test pasha</Link>
         </>
       }
       actions={

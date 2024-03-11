@@ -12,6 +12,7 @@ export const clientRoutes = {
 const base = "http://localhost:5000/api";
 export const serverRoutes = {
   image: "http://localhost:5000/image/",
+  imageAvatar: "http://localhost:5000/",
   products: base + "/products?",
   product: base + "/products/",
   similarProducts: base + "/products/similar/",
@@ -26,6 +27,7 @@ export const serverRoutes = {
   purchase: base + "/basket/purchase",
   delivery: base + "/delivery",
   confirm: base + "/delivery/confirm",
+  upload: base + "/auth/upload",
 };
 
 import { lazy } from "react";
@@ -34,15 +36,13 @@ import ErrorPage from "./pages/error-page";
 import App from "./App";
 import PTest from "./pages/PTest";
 import VTest from "./pages/VTest";
+import ProfileLayoutPage from "./pages/profile-page/profile-layout-page";
 
 const LoginPage = lazy(() => import("./pages/login-page/login-page"));
 const SignUpPage = lazy(() => import("./pages/signup-page/signup-page"));
 const ProductsPage = lazy(() => import("./pages/products-page/products-page"));
 const BasketPage = lazy(() => import("./pages/basket/basket-page"));
 const DeliveryPage = lazy(() => import("./pages/delivery/delivery-page"));
-const ProfileLayoutPage = lazy(
-  () => import("./pages/profile-page/profile-layout-page"),
-);
 
 export const router = createBrowserRouter([
   {

@@ -10,17 +10,26 @@ import EmptyContentBasket from "./empty-content-basket";
 import BasketLayoutPage from "./basket-layout-page";
 import { useNavigate } from "react-router-dom";
 import { serverRoutes } from "src/routes";
+import BasketCardSkeleton from "src/widgets/basket-card/basket-card-skeleton";
+import BasketListSkeleton from "src/widgets/basket-card/basket-card-skeleton";
 
 const BasketPage = () => {
-  const { isAuthenticated, authJSX, isLoading, userId } = useIsAuth();
-  const { data: productsFromBasket } = useGetProductsFromBasket(userId);
+  const {
+    isAuthenticated,
+    authJSX,
+    isLoading: authIsLoading,
+    userId,
+  } = useIsAuth();
+  const {
+    data: productsFromBasket,
+    isLoading: productsIsLoading,
+    isSuccess,
+  } = useGetProductsFromBasket(userId);
   const { mutate: deleteAllProductsFromBasket } =
     useDeleteAllProductsFromBasket();
   const { mutate: purchaseProducts } = usePurchaseProducts();
 
-  const navigate = useNavigate();
-
-  const emptyBasket = !isLoading && productsFromBasket?.length === 0;
+  const emptyBasket = !authIsLoading && productsFromBasket?.length === 0;
 
   if (!isAuthenticated) {
     return authJSX;
@@ -41,8 +50,11 @@ const BasketPage = () => {
     <BasketLayoutPage
       products={
         <>
-          {productsFromBasket &&
-            productsFromBasket.map(
+          {productsIsLoading ? (
+            <BasketListSkeleton />
+          ) : (
+            isSuccess &&
+            productsFromBasket?.map(
               ({ id, name, price, quantity, currency, image }) => {
                 return (
                   <BasketCard
@@ -56,23 +68,28 @@ const BasketPage = () => {
                   />
                 );
               },
-            )}
+            )
+          )}
         </>
       }
-      totalPrice={`Total: $${totalPrice}`}
+      totalPrice={isSuccess && `Total: $${totalPrice}`}
       actionDeleteButton={
-        <UIButton
-          onClick={() => deleteAllProductsFromBasket()}
-          size={"sm"}
-          variant={"subscribe"}
-        >
-          Delete products
-        </UIButton>
+        isSuccess && (
+          <UIButton
+            onClick={() => deleteAllProductsFromBasket()}
+            size={"sm"}
+            variant={"subscribe"}
+          >
+            Delete products
+          </UIButton>
+        )
       }
       actionBuyButton={
-        <UIButton onClick={handlePurchaseProduct} size={"md"} variant={"pay"}>
-          Purchase products
-        </UIButton>
+        isSuccess && (
+          <UIButton onClick={handlePurchaseProduct} size={"md"} variant={"pay"}>
+            Purchase products
+          </UIButton>
+        )
       }
     />
   );

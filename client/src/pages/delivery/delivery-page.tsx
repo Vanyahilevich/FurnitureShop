@@ -4,10 +4,15 @@ import DeliveryCard from "src/widgets/delivery-card/delivery-card";
 import EmptyContentDelivery from "./empty-content-delivery";
 import DeliveryLayoutPage from "./delivery-layout-page";
 import { serverRoutes } from "src/routes";
+import DeliveryListSkeleton from "src/widgets/delivery-card/delivery-card-skeleton";
 
 const DeliveryPage = () => {
   const { isAuthenticated, authJSX, userId } = useIsAuth();
-  const { data: productsFromDelivery } = useGetProductsFromDelivery(userId);
+  const {
+    data: productsFromDelivery,
+    isLoading: deliveryProductsIsLoading,
+    isSuccess,
+  } = useGetProductsFromDelivery(userId);
 
   if (!isAuthenticated) {
     return authJSX;
@@ -20,9 +25,21 @@ const DeliveryPage = () => {
 
   return (
     <DeliveryLayoutPage>
-      {productsFromDelivery &&
+      {deliveryProductsIsLoading ? (
+        <DeliveryListSkeleton />
+      ) : (
+        isSuccess &&
         productsFromDelivery.map(
-          ({ id, name, price, quantity, currency, creationDate, image }) => {
+          ({
+            id,
+            name,
+            price,
+            quantity,
+            currency,
+            creationDateMillis,
+            image,
+            deliveryDateMillis,
+          }) => {
             return (
               <DeliveryCard
                 key={name}
@@ -32,11 +49,13 @@ const DeliveryPage = () => {
                 currency={currency}
                 quantity={quantity}
                 imageSrc={image && serverRoutes.image + image}
-                creationDate={creationDate}
+                creationDateMillis={creationDateMillis}
+                deliveryDateMillis={deliveryDateMillis}
               />
             );
           },
-        )}
+        )
+      )}
     </DeliveryLayoutPage>
   );
 };

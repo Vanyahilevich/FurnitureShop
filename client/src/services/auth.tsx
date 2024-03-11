@@ -31,6 +31,25 @@ export const useSignUp = () => {
     },
   });
 };
+export const useChangeInfoUser = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationKey: ["auth"],
+    mutationFn: async (data: any) => {
+      try {
+        const response = await axios.post(serverRoutes.upload, data, {
+          withCredentials: true,
+        });
+        return response.data;
+      } catch (error) {
+        throw error.response.data;
+      }
+    },
+    onSuccess: (data) => {
+      queryClient.invalidateQueries(["auth"]);
+    },
+  });
+};
 
 export const useLogin = () => {
   const queryClient = useQueryClient();

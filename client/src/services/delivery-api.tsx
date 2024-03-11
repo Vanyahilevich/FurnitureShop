@@ -22,13 +22,40 @@ export const useDeleteProductFromDelivery = () => {
     mutationKey: ["delivery"],
     mutationFn: async ({
       id,
-      creationDate,
+      creationDateMillis,
     }: {
       id: string;
-      creationDate: number;
+      creationDateMillis: number;
     }) => {
-      await axios.delete(`${serverRoutes.delivery}/${id}/${creationDate}`, {
-        withCredentials: true,
+      // Получаем текущие данные из кеша перед удалением
+      const prevBasketData = queryClient.getQueryData(["delivery"]);
+      console.log(prevBasketData, id);
+      // Оптимистическое обновление: Удаляем продукт из локальных данных
+      queryClient.setQueryData(["delivery"], (prevData) => {
+        return prevData.filter((product) => product.id !== id);
+      });
+      await axios.delete(
+        `${serverRoutes.delivery}/${id}/${creationDateMillis}`,
+        {
+          withCredentials: true,
+        },
+      );
+    },
+    onMutate: (variables) => {
+      // Обновляем локальные данные перед отправкой запроса
+      const { id } = variables;
+      queryClient.setQueryData(["delivery"], (prevData) => {
+        return prevData.filter((product) => product.id !== id);
+      });
+
+      // Возвращаем объект для использования в onSettled
+      return { id };
+    },
+    onError: (error, variables, context) => {
+      // Восстанавливаем локальные данные в случае ошибки
+      const { id } = context;
+      queryClient.setQueryData(["basket"], (prevData) => {
+        return [...prevData, { id }];
       });
     },
     onSettled: () => {
@@ -58,16 +85,41 @@ export const useConfirmProductFromDelivery = () => {
     mutationKey: ["delivery"],
     mutationFn: async ({
       id,
-      creationDate,
+      creationDateMillis,
       quantity,
     }: Partial<DeliveryProductType>) => {
+      // Получаем текущие данные из кеша перед удалением
+      const prevBasketData = queryClient.getQueryData(["delivery"]);
+      console.log(prevBasketData, id);
+
+      // Оптимистическое обновление: Удаляем продукт из локальных данных
+      queryClient.setQueryData(["delivery"], (prevData) => {
+        return prevData.filter((product) => product.id !== id);
+      });
       await axios.post(
         `${serverRoutes.confirm}/${id}`,
-        { creationDate, quantity },
+        { creationDateMillis, quantity },
         {
           withCredentials: true,
         },
       );
+    },
+    onMutate: (variables) => {
+      // Обновляем локальные данные перед отправкой запроса
+      const { id } = variables;
+      queryClient.setQueryData(["delivery"], (prevData) => {
+        return prevData.filter((product) => product.id !== id);
+      });
+
+      // Возвращаем объект для использования в onSettled
+      return { id };
+    },
+    onError: (error, variables, context) => {
+      // Восстанавливаем локальные данные в случае ошибки
+      const { id } = context;
+      queryClient.setQueryData(["delivery"], (prevData) => {
+        return [...prevData, { id }];
+      });
     },
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: ["delivery"] });

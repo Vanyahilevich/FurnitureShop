@@ -48,7 +48,7 @@ const UISubmitButton: FC<IUIButtonProps> = ({
       type={type}
       {...props}
     >
-      {children}
+      Submit
       <span className={clsx(isLoading ? "visible" : "invisible")}>
         <AiOutlineLoading3Quarters className="animate-spin" />
       </span>
