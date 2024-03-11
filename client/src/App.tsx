@@ -1,14 +1,21 @@
 import "./index.css";
-import React from "react";
+import { Suspense } from "react";
 import { Outlet } from "react-router-dom";
-import AppLayout from "./components/AppLayout";
-import Header from "./widgets/Header/Header";
-import Footer from "./widgets/Footer";
+import AppLayout from "./pages/app-layout";
+import Header from "./widgets/header/header";
+import Footer from "./widgets/footer";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 function App() {
   return (
     <AppLayout header={<Header />} aside={<></>} footer={<Footer />}>
-      <Outlet />
+      <Suspense
+        fallback={
+          <AiOutlineLoading3Quarters className="text-black animate-spin w-10 h-10 self-center justify-items-center flex-auto" />
+        }
+      >
+        <Outlet />
+      </Suspense>
     </AppLayout>
   );
 }

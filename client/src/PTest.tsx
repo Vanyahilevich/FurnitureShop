@@ -1,5 +1,5 @@
 import { React, useState, useEffect } from "react";
-import UIButton from "./ui-kit/UIButton";
+import UIButton from "./ui-kit/ui-button";
 import imageProduct from "../public/black-desk-lamp.jpg";
 import imageBest from "../public/white_light.jpg";
 import { Link, useParams } from "react-router-dom";
@@ -23,7 +23,7 @@ const PTest = () => {
   const [product, setProduct] = useState<IProduct>({});
   const [products, setProducts] = useState<IProduct[]>([]);
 
-  const { id } = useParams("2");
+  const { id } = useParams();
 
   const { isPending, error, data } = useQuery({
     queryKey: ["product" + id, id],

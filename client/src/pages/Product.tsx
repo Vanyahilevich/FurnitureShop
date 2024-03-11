@@ -1,5 +1,5 @@
 import { React, useState, useEffect } from "react";
-import UIButton from "../ui-kit/UIButton";
+import UIButton from "../ui-kit/ui-button";
 
 import { Link, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
