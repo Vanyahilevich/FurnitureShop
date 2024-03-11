@@ -1,0 +1,250 @@
+{"products" : [
+    {  "_id": {
+        "$oid": "65c8f8fd898966337c3d8af3"  },
+      "id": "1",  "name": "Comfortable Sofa",
+      "price": 599.99,  "currency": "$",
+      "description": "A stylish and comfortable sofa for your living room.",  "quantity": 10,
+      "image": ""},
+    {  "_id": {
+        "$oid": "65c8f8fd898966337c3d8af4"  },
+      "id": "2",  "name": "Modern Dining Table",
+      "price": 299.99,  "currency": "$",
+      "description": "A sleek and modern dining table for your dining area.",  "quantity": 5,
+      "image": ""},
+    {  "_id": {
+        "$oid": "65c8f8fd898966337c3d8af5"
+      },  "id": "3",
+      "name": "Bedroom Wardrobe",  "price": 499.99,
+      "currency": "$",  "description": "A spacious wardrobe for your bedroom storage needs.",
+      "quantity": 8,  "image": ""
+    },{
+      "_id": {    "$oid": "65c8f8fd898966337c3d8af6"
+      },  "id": "4",
+      "name": "Leather Recliner Chair",  "price": 399.99,
+      "currency": "$",  "description": "A luxurious leather recliner chair for ultimate relaxation.",
+      "quantity": 7,  "image": ""
+    },{
+      "_id": {    "$oid": "65c8f8fd898966337c3d8af7"
+      },  "id": "5",
+      "name": "Classic Coffee Table",  "price": 149.99,
+      "currency": "$",  "description": "A timeless coffee table to complement your living room decor.",
+      "quantity": 15,  "image": ""
+    },{
+      "_id": {    "$oid": "65c8f8fd898966337c3d8af8"
+      },  "id": "6",
+      "name": "Elegant Bedroom Set",  "price": 899.99,
+      "currency": "$",  "description": "An elegant bedroom set for a luxurious sleep environment.",
+      "quantity": 3,  "image": ""
+    },{
+      "_id": {    "$oid": "65c8f8fd898966337c3d8af9"
+      },  "id": "7",
+      "name": "Cozy Armchair",  "price": 249.99,
+      "currency": "$",  "description": "A cozy armchair to add warmth to your home.",
+      "quantity": 12,  "image": ""
+    },{
+      "_id": {    "$oid": "65c8f8fd898966337c3d8afa"
+      },  "id": "8",
+      "name": "Wooden Bookshelf",  "price": 179.99,
+      "currency": "$",  "description": "A sturdy wooden bookshelf for organizing your book collection.",
+      "quantity": 9,  "image": ""
+    },{
+      "_id": {    "$oid": "65c8f8fd898966337c3d8afb"
+      },  "id": "9",
+      "name": "Sleek Office Desk",  "price": 349.99,
+      "currency": "$",  "description": "A sleek office desk for a modern and productive workspace.",
+      "quantity": 6,  "image": ""
+    },{
+      "_id": {    "$oid": "65c8f8fd898966337c3d8afc"
+      },  "id": "10",
+      "name": "Rustic Dining Chairs (Set of 4)",  "price": 199.99,
+      "currency": "$",  "description": "Rustic dining chairs to complete your dining set.",
+      "quantity": 11,
+      "image": ""},
+    {  "_id": {
+        "$oid": "65c8f8fd898966337c3d8afd"  },
+      "id": "11",  "name": "Contemporary Bedside Table",
+      "price": 79.99,  "currency": "$",
+      "description": "A contemporary bedside table for your bedroom essentials.",  "quantity": 14,
+      "image": ""},
+    {  "_id": {
+        "$oid": "65c8f8fd898966337c3d8afe"  },
+      "id": "12",  "name": "Lounge Sectional Sofa",
+      "price": 799.99,  "currency": "$",
+      "description": "A spacious lounge sectional sofa for entertaining guests.",  "quantity": 4,
+      "image": ""},
+    {
+      "_id": {    "$oid": "65c8f8fd898966337c3d8aff"
+      },  "id": "13",
+      "name": "Outdoor Patio Set",  "price": 599.99,
+      "currency": "$",  "description": "An outdoor patio set for enjoying the sunshine.",
+      "quantity": 8,  "image": ""
+    },{
+      "_id": {    "$oid": "65c8f8fd898966337c3d8b00"
+      },  "id": "14",
+      "name": "Foldable Desk",  "price": 129.99,
+      "currency": "$",  "description": "A foldable desk for flexible workspace solutions.",
+      "quantity": 10,  "image": ""
+    },
+    {  "_id": {
+        "$oid": "65c8f8fd898966337c3d8b01"  },
+      "id": "15",  "name": "Plush Throw Pillows (Set of 2)",
+      "price": 29.99,  "currency": "$",
+      "description": "Plush throw pillows to add a touch of comfort to your sofa.",  "quantity": 20,
+      "image": ""},
+    {  "_id": {
+        "$oid": "65c8f8fd898966337c3d8b02"  },
+      "id": "16",  "name": "Antique Vanity Table",
+      "price": 499.99,  "currency": "$",
+      "description": "An antique vanity table for your dressing room.",  "quantity": 5,
+      "image": ""},
+    {  "_id": {
+        "$oid": "65c8f8fd898966337c3d8b03"  },
+      "id": "17",  "name": "Compact TV Stand",
+      "price": 179.99,  "currency": "$",
+      "description": "A compact TVtand for your entertainment setup.",  "quantity": 9,
+      "image": ""},
+    {  "_id": {
+        "$oid": "65c8f8fd898966337c3d8b04"  },
+      "id": "18",  "name": "Artistic Wall Mirror",
+      "price": 89.99,  "currency": "$",
+      "description": "An artistic wall mirror to enhance your home decor.",  "quantity": 15,
+      "image": ""},
+    {  "_id": {
+        "$oid": "65c8f8fd898966337c3d8b05"  },
+      "id": "19",  "name": "Mid-Century Modern Chair",
+      "price": 299.99,  "currency": "$",
+      "description": "A mid-century modern chair for a touch of retro style.",  "quantity": 7,
+      "image": ""},
+    {  "_id": {
+        "$oid": "65c8f8fd898966337c3d8b06"  },
+      "id": "20",  "name": "Rattan Outdoor Lounge Set",
+      "price": 649.99,  "currency": "$",
+      "description": "A rattan outdoor lounge set for comfortable outdoor seating.",  "quantity": 6,
+      "image": ""},
+    {  "_id": {
+        "$oid": "65c8f8fd898966337c3d8b07"  },
+      "id": "21",  "name": "Classic Table Lamp",
+      "price": 49.99,  "currency": "$",
+      "description": "A classic table lamp to illuminate your workspace.",  "quantity": 18,
+      "image": ""},
+    {  "_id": {
+        "$oid": "65c8f8fd898966337c3d8b08"  },
+      "id": "22",  "name": "Chic Ottoman Pouf",
+      "price": 69.99,  "currency": "$",
+      "description": "A chic ottoman pouf for versatile seating options.",  "quantity": 12,
+      "image": ""},
+    {  "_id": {
+        "$oid": "65c8f8fd898966337c3d8b09"  },
+      "id": "23",  "name": "Industrial Bar Stools (Set of 2)",
+      "price": 149.99,
+      "currency": "$",
+      "description": "Industrial bar stools for a stylish bar area.",  "quantity": 8,
+      "image": ""},
+    {  "_id": {
+        "$oid": "65c8f8fd898966337c3d8b0a"  },
+      "id": "24",  "name": "Velvet Accent Chair",
+      "price": 219.99,  "currency": "$",
+      "description": "A velvet accent chair for a touch of luxury.",  "quantity": 10,
+      "image": ""},
+    {  "_id": {
+        "$oid": "65c8f8fd898966337c3d8b0b"
+      },  "id": "25",
+      "name": "Classic Wooden Bench",  "price": 129.99,
+      "currency": "$",  "description": "A classic wooden bench for additional seating.",
+      "quantity": 14,  "image": ""
+    },{
+      "_id": {    "$oid": "65c8f8fd898966337c3d8b0c"
+      },  "id": "26",
+      "name": "Glass Coffee Table",  "price": 179.99,
+      "currency": "$",  "description": "A sleek glass coffee table for a modern living room.",
+      "quantity": 11,  "image": ""
+    },{
+      "_id": {    "$oid": "65c8f8fd898966337c3d8b0d"
+      },  "id": "27",
+      "name": "Rustic Wall Shelf",  "price": 59.99,
+      "currency": "$",  "description": "A rustic wall shelf for displaying your favorite decor items.",
+      "quantity": 16,  "image": ""
+    },{
+      "_id": {    "$oid": "65c8f8fd898966337c3d8b0e"
+      },  "id": "28",
+      "name": "Leather Barcalounger",
+      "price": 699.99,  "currency": "$",
+      "description": "A luxurious leather barcalounger for ultimate comfort.",
+      "quantity": 5,  "image": ""
+    },{
+      "_id": {    "$oid": "65c8f8fd898966337c3d8b0f"
+      },  "id": "29",
+      "name": "Round Dining Table",  "price": 349.99,
+      "currency": "$",  "description": "A round dining table for intimate family gatherings.",
+      "quantity": 7,  "image": ""
+    },{
+      "_id": {    "$oid": "65c8f8fd898966337c3d8b10"
+      },  "id": "30",
+      "name": "Coastal Throw Blanket",  "price": 34.99,
+      "currency": "$",  "description": "A coastal-themed throw blanket for cozy evenings.",
+      "quantity": 22,  "image": ""
+    },{
+      "_id": {    "$oid": "65c8f8fd898966337c3d8b11"
+      },  "id": "31",
+      "name": "Vintage Dresser",  "price": 449.99,
+      "currency": "$",  "description": "A vintage dresser to add charm to your bedroom.",
+      "quantity": 6,  "image": ""
+    },{
+      "_id": {    "$oid": "65c8f8fd898966337c3d8b12"
+      },  "id": "32",
+      "name": "Sleek Floor Lamp",  "price": 129.99,
+      "currency": "$",  "description": "A sleek floor lamp to brighten up your living space.",
+      "quantity": 9,  "image": ""
+    },{
+      "_id": {    "$oid": "65c8f8fd898966337c3d8b13"
+      },  "id": "33",
+      "name": "Accent Wall Clock",  "price": 39.99,
+      "currency": "$",  "description": "An accent wall clock to enhance your home decor.",
+      "quantity": 17,  "image": ""
+    },{
+      "_id": {    "$oid": "65c8f8fd898966337c3d8b14"
+      },  "id": "34",
+      "name": "Faux Leather Loveseat",  "price": 549.99,
+      "currency": "$",  "description": "A faux leather loveseat for compact and stylish seating.",
+      "quantity": 8,  "image": ""
+    },{
+      "_id": {    "$oid": "65c8f8fd898966337c3d8b15"
+      },  "id": "35",
+      "name": "Cotton Bedding Set",
+      "price": 89.99,  "currency": "$",
+      "description": "A cozy cotton bedding set for a good night's sleep.",  "quantity": 13,
+      "image": ""},
+    {  "_id": {
+        "$oid": "65c8f8fd898966337c3d8b16"  },
+      "id": "36",  "name": "Marble Top Side Table",
+      "price": 129.99,  "currency": "$",
+      "description": "A marble top side table for an elegant touch to your space.",  "quantity": 11,
+      "image": ""
+    },{
+      "_id": {    "$oid": "65c8f8fd898966337c3d8b17"
+      },  "id": "37",
+      "name": "Convertible Sofa Bed",  "price": 799.99,
+      "currency": "$",  "description": "A convertible sofa bed for versatile living room furniture.",
+      "quantity": 4,  "image": ""
+    },{
+      "_id": {    "$oid": "65c8f8fd898966337c3d8b18"
+      },  "id": "38",
+      "name": "Rustic Wall Art",  "price": 49.99,
+      "currency": "$",  "description": "Rustic wall art to adorn your walls with natural beauty.",
+      "quantity": 20,  "image": ""
+    },{
+      "_id": {    "$oid": "65c8f8fd898966337c3d8b19"
+      },  "id": "39",
+      "name": "Stylish Desk Organizer",  "price": 19.99,
+      "currency": "$",  "description": "A stylish desk organizer to keep your workspace tidy.",
+      "quantity": 15,  "image": ""
+    },{
+      "_id": {
+        "$oid": "65c8f8fd898966337c3d8b1a"  },
+      "id": "40",  "name": "Modern Plant Stand",
+      "price": 69.99,  "currency": "$",
+      "description": "A modern plant stand for showcasing your favorite plants.",  "quantity": 10,
+      "image": ""}
+]}
+    
+  

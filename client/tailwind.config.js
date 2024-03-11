@@ -22,7 +22,7 @@ module.exports = {
         lightYellowHover: "#E0BF69",
         lightYellowClick: "#FFE8AC",
 
-        footerInput: "#E6F0F6"
+        footerInput: "#E6F0F6",
       },
       fontFamily: {
         mainFont: ["Montserrat", 'sans-serif'],

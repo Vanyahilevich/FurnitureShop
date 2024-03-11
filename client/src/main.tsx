@@ -15,6 +15,7 @@ import {
 } from "@tanstack/react-query";
 import SignUpPage from "./pages/sign-up-page";
 import LoginPage from "./pages/login-page";
+import Product from "./pages/Product";
 
 const queryClient = new QueryClient();
 
@@ -38,7 +39,7 @@ const router = createBrowserRouter([
       },
       {
         path: clientRoutes.products + "/:id",
-        element: <div>one Product</div>,
+        element: <Product />,
       },
       {
         path: clientRoutes.basket,

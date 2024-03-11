@@ -24,7 +24,7 @@ const Footer = () => {
           <InstagramButton />
         </div>
       </div>
-      <div className="text-2xl flex flex-col gap-y-5">
+      <div className="text-xl flex flex-col gap-y-5">
         <Link to={"###"} className="mb-auto">
           Menu
         </Link>
@@ -32,7 +32,7 @@ const Footer = () => {
         <Link to={"###"}>about us</Link>
         <Link to={"###"}>contact</Link>
       </div>
-      <div className="text-2xl flex flex-col gap-y-5">
+      <div className="text-xl flex flex-col gap-y-5">
         <Link to={"###"} className="mb-auto">
           Additional menu
         </Link>
@@ -40,7 +40,7 @@ const Footer = () => {
         <Link to={"###"}>payment and delivery</Link>
         <Link to={"###"}>privacy policy</Link>
       </div>
-      <div className="text-2xl flex flex-col max-w-72 gap-y-5">
+      <div className="text-xl flex flex-col max-w-72 gap-y-5">
         <div className="mb-auto">
           Subscribe to notifications about new items
         </div>

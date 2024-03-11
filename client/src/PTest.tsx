@@ -1,9 +1,12 @@
-
 import { React, useState, useEffect } from "react";
 import UIButton from "./ui-kit/UIButton";
 import imageProduct from "../public/black-desk-lamp.jpg";
 import imageBest from "../public/white_light.jpg";
 import { Link, useParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { serverRoutes } from "./routes";
+import axios from "axios";
+import { ProductType } from "./types/ProductType";
 
 interface IProduct {
   name: string;
@@ -20,30 +23,41 @@ const PTest = () => {
   const [product, setProduct] = useState<IProduct>({});
   const [products, setProducts] = useState<IProduct[]>([]);
 
-  const { id } = useParams();
+  const { id } = useParams("2");
+
+  const { isPending, error, data } = useQuery({
+    queryKey: ["product" + id, id],
+    queryFn: async (): Promise<ProductType> => {
+      const response = await axios.get(serverRoutes.product + id);
+      return response.data;
+    },
+  });
+
+  const isFoundProduct = data && data.length !== 0 && !isPending;
+  if (error) return "An error has occurred: " + error.message;
+  console.log(data);
 
   const getProduct = async () => {
     const response = await fetch(`http://localhost:3000/products/${id}`);
     const data: IProduct = await response.json();
-
+    // console.log(data);
     setProduct(data);
   };
 
-<<<<<<< HEAD
-  const getProducts = async () => {
-    const response = await fetch(
-      `http://localhost:3000/products?_start=0&_end=4`,
-    );
-    const data: IProduct = await response.json();
+  // const getProducts = async () => {
+  //   const response = await fetch(
+  //     `http://localhost:3000/products?_start=0&_end=4`,
+  //   );
+  //   const data: IProduct = await response.json();
 
-    setProducts(data);
-  };
+  //   setProducts(data);
+  // };
 
   useEffect(() => {
     console.log("start");
 
     getProduct();
-    getProducts();
+    // getProducts();
     console.log("end");
   }, []);
 
@@ -99,7 +113,6 @@ const PTest = () => {
       </div>
     </div>
   );
-
 };
 
 export default PTest;
