@@ -1,96 +1,151 @@
-const {ObjectId} = require("mongodb");
-const productRepository = require("../repositories/productRepository")
 const basketRepository = require("../repositories/basketRepository");
-
+const deliveryRepository = require('../repositories/deliveryRepository')
+const productsRepository = require('../repositories/productsRepository')
+const { addDays } = require("date-fns");
+const getRandomNumber =  require('../utils/get-random-number');
 
 const basketController = {
   getAllProductInBasket: async (req, res, next) => {
     try {
-      const productsPointerInBasket = await basketRepository.getAllProductInBasket(req.db, req.user.id)
-      if (productsPointerInBasket.length === 0) {
-        return res.status(200).json([])
+      const user = req.user;
+      const linkOnAllProduct = await basketRepository.getAllProductInBasket(req.db, user.id);
+  
+      if (linkOnAllProduct.length === 0) {
+        return res.status(200).json([]);
       }
-      const AllProductsInBasket = await Promise.all(
-        productsPointerInBasket.map(item => {
-          return new Promise(async (resolve, reject) => {
-            try {
-              const result = await productRepository.getProductById(req.db, item.product_id)
-              result.size = item.size
-              result.count = item.quantity
-              if (result) {
-                resolve(result);
-              } else {
-                reject('Ошибка выполнения операции');
-              }
-            } catch (error) {
-              throw new Error()
-            }
-          });
-        }))
-      res.json( AllProductsInBasket)
-
-
+  
+      const allProductsInBasket = await Promise.all(
+        linkOnAllProduct.map(async (item) => {
+          try {
+            const result = await productsRepository.getProductById(req.db, item.productId);
+            return {
+              ...result,
+              quantity: item.quantity,
+            };
+          } catch (error) {
+            console.error("Error fetching product:", error);
+            
+            return {
+              id: item.productId,
+              name: "Product Not Found",
+              quantity: item.quantity,
+            };
+          }
+        })
+      );
+  
+      res.json(allProductsInBasket);
     } catch (error) {
       next(error)
     }
   },
   addProductToBasket: async (req, res, next) => {
-    console.log("addProductToBasket")
     try {
-      const {_id, size} = req.body
+      const {id} = req.params
+      const {quantity} = req.body
       const user = req.user
-      console.log("productInBasket", user)
-
-      const productInBasket = await basketRepository.findProductInBasket(req.db, _id, size, user)
-      console.log("productInBasket",productInBasket)
+      if(quantity <= 0){
+        return res.status(40).json({message: "This product SOLD OUT"})
+      }
+      const productInBasket = await basketRepository.findProductInBasket(req.db, id, user.id)
 
       if (!productInBasket) {
         const newProduct = {
-          product_id: new ObjectId(_id),
+          productId: id,
           quantity: 1,
-          size: size
         }
-        await basketRepository.addNewProductToBasket(req.db, newProduct, user)
+
+        await basketRepository.addNewProductToBasket(req.db, newProduct, user.id)
         return res.status(201).json(newProduct)
       } else {
-        res.status(201).json({message: "Product in basket"})
+        res.status(400).json({message: "Product already in basket", id:id})
       }
     } catch (error) {
       next(error)
     }
   },
-  updateQuantityProductInBasket: async (req, res, next) => {
+  increaseQuantityProductInBasket: async (req, res, next) => {
+    console.log("increase")
     try {
-      const {id, operation, size, count} = req.body
-      console.log("update")
-      if (operation === 1) {
-        const result = await productRepository.checkValidityCount(req.db, id, size, count)
-        if (result === null) {
-          return res.json({error: "Такого количества нету на складе"})
-        }
-        const realCount = result.size.filter(sizes => sizes.size === size)[0].count
-        await basketRepository.updateExistProductToBasket(req.db, id, size, req.user, operation, realCount)
-      } else {
-        await basketRepository.updateExistProductToBasket(req.db, id, size, req.user, operation, count)
-      }
-      res.sendStatus(200)
-    } catch (error) {
-      next(error)
-    }
-  },
-  deleteProductInBasket: async (req, res, next) => {
-    try {
-      const products = req.body
+      const {id:productId} = req.params
+      const {quantity} = req.body
       const user = req.user
-      console.log("products", products)
+
+      const changingProduct = await productsRepository.getProductById(req.db, productId)
+      const quantityChangingProduct = changingProduct.quantity
+
+      if (quantity > quantityChangingProduct ) {
+        return res.status(400).json({error: "There is no such quantity in stock"})
+      }
+
+      await basketRepository.increaseProductInBasket(req.db, user.id, productId)
+      res.status(200).json({message: "good"})
+    } catch (error) {
+      next(error)
+    }
+  },
+  decreaseQuantityProductInBasket: async (req, res, next) => {
+    console.log("decrease")
+    try {
+      const {id:productId} = req.params
+      const {quantity} = req.body
+      const user = req.user
+      console.log("decrease",quantity)
+      if(quantity < 1){
+        return res.status(400).json({error: "00"})
+      }
+      await basketRepository.decreaseProductInBasket(req.db, user.id, productId)
+        
+      res.status(200).json({message: "good"})
+    } catch (error) {
+      next(error)
+    }
+  },
+  deleteProductFromBasket: async (req, res, next) => {
+    try {
+      const {id:productId} = req.params
+      const user = req.user
+      await basketRepository.deleteProductFromBasket(req.db, user.id, productId)
+      res.status(200).json({message: "Product deleted"})
+    } catch (error) {
+      next(error)
+    }
+  },
+  deleteAllProductFromBasket: async (req, res, next) => {
+    try {
+      const user = req.user
+      await basketRepository.deleteAllProductFromBasket(req.db, user.id)
+      res.status(200).json({message: "All product deleted"})
+    } catch (error) {
+      next(error)
+    }
+  },
+  purchaseProducts: async (req, res, next) => {
+    try {
+      const user = req.user
+      const products = req.body
+      
+      const creationDate = new Date()
+      const deliveryDate = addDays(creationDate, getRandomNumber(4, 14))
+      const creationDateMillis = creationDate.getTime()
+      const deliveryDateMillis = deliveryDate.getTime()
+      
       await Promise.all(products.map(product => {
-        return basketRepository.deleteProductInBasket(req.db, user, product._id, product.size)
+        const productInfo = {
+          "productId": product.id,
+          "quantity": product.quantity,
+          "creationDateMillis": creationDateMillis,
+          "deliveryDateMillis": deliveryDateMillis,
+        }
+        return deliveryRepository.addNewProductToDelivery(req.db, user.id, productInfo)
       }))
-      res.status(200).json({})
+      await basketRepository.deleteAllProductFromBasket(req.db, user.id)
+      res.status(200).json({message: "Good"})
     } catch (error) {
       next(error)
     }
   }
+
 }
 
 module.exports = basketController

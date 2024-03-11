@@ -1,7 +1,7 @@
 const {validationResult} = require("express-validator");
 
 const checkErrorValidateMiddleware = (req, res, next) => {
-  console.log("checkErrorValidate")
+  console.log("checkError")
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     console.log(errors.array())

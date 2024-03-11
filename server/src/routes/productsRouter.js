@@ -9,7 +9,6 @@ const productsController = require("../controllers/productsController.js")
 router.get("/", productsController.getAll)
 router.get("/:id", productsController.getProductById)
 router.get("/similar/:id", productsController.getSimilarProductById)
-router.put("/updateProducts",authMiddleware, productsController.updateProducts)
 
 
 module.exports = router
