@@ -4,6 +4,7 @@ const basketRepository = require("../repositories/basketRepository");
 
 const productsController = {
   getAll: async (req, res, next) => {
+    console.log("get all ")
     try {
       const data = await productsRepository.getAll(req.db, req.query);
       res.json(data)

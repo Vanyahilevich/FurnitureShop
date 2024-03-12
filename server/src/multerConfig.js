@@ -4,7 +4,7 @@ const path = require('path');
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, 'public/user-avatars/');  // Destination folder on the server
+    cb(null, 'public/user-avatars/');  // Destination folder on the server  
   },
   filename: function (req, file, cb) {
     // Rename the file to avoid name conflicts (you can customize the filename)
@@ -14,9 +14,4 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-// const multer  = require('multer')
-// const upload = multer({ dest: 'user-avatars/' })
-
-
 module.exports = upload.single('image');
-// module.exports = upload.fields([{ name: 'image', maxCount: 1 }]);
