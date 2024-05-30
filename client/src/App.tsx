@@ -3,7 +3,7 @@ import { Suspense } from "react";
 import { Outlet } from "react-router-dom";
 import AppLayout from "./pages/app-layout";
 import Header from "./widgets/header/header";
-import Footer from "./widgets/footer";
+import Footer from "./widgets/footer/Footer";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 function App() {

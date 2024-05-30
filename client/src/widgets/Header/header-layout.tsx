@@ -13,12 +13,14 @@ const HeaderLayout: FC<IHeaderLayoutProps> = ({
   auth,
 }) => {
   return (
-    <div className="flex items-center h-14 py-2 gap-10">
-      <div className="w-20 h-6">{logo}</div>
-      <div className="flex mr-auto items-center gap-4">{links}</div>
-      <div className="flex gap-2">
-        <div className="flex items-center gap-3"> {actions}</div>
-        <div className="w-[1px] py-1 min-h-full bg-slate-300 overflow-hidden"></div>
+    <div className="py-4 flex items-center">
+      {logo}
+      <div className="flex ml-auto items-center gap-2 text-sm md:text-base">
+        {links}
+      </div>
+      <div className="flex ml-4 gap-2">
+        <div className="hidden sm:flex items-center gap-3"> {actions}</div>
+        <div className="hidden sm:flex w-[1px] py-1 min-h-full bg-slate-300 overflow-hidden"></div>
         <div className="w-10 flex items-center justify-center">{auth}</div>
       </div>
     </div>

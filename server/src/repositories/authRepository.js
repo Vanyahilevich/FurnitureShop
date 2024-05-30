@@ -14,23 +14,20 @@ const authRepository = {
     }
     return db.collection("users").findOne({id:session.userId})
   },
-  changeUserInfo: async(db, id, userInfo,imageURL) => {
-    const query = {}
-    if(userInfo.name){
-      query.name = userInfo.name
-    }
-    if(userInfo.surname){
-      query.surname = userInfo.surname
-    }
-    if(imageURL){
-      query.imageURL = imageURL
-    }
-
+  changeInfo: async(db, id, query) => {
     return await db.collection("users").updateOne(
       {
         id: id, 
       },
       { $set: query },
+    );
+  },
+  changeImage: async(db, id,imageURL) => {
+    return await db.collection("users").updateOne(
+      {
+        id: id, 
+      },
+      { $set: {"imageURL": imageURL} },
     );
   },
   createUser: async (db, { name, surname, email, password, imageURL},creationDateUser) => {

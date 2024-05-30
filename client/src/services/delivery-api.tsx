@@ -7,10 +7,14 @@ export const useGetProductsFromDelivery = (userId?: string) => {
   return useQuery({
     queryKey: ["delivery"],
     queryFn: async (): Promise<DeliveryProductType[]> => {
-      const response = await axios.get(serverRoutes.delivery, {
-        withCredentials: true,
-      });
-      return response.data;
+      try {
+        const response = await axios.get(serverRoutes.delivery, {
+          withCredentials: true,
+        });
+        return response.data;
+      } catch (error) {
+        throw error.response.data;
+      }
     },
     enabled: !!userId,
   });
@@ -27,58 +31,40 @@ export const useDeleteProductFromDelivery = () => {
       id: string;
       creationDateMillis: number;
     }) => {
-      // Получаем текущие данные из кеша перед удалением
-      const prevBasketData = queryClient.getQueryData(["delivery"]);
-      console.log(prevBasketData, id);
-      // Оптимистическое обновление: Удаляем продукт из локальных данных
-      queryClient.setQueryData(["delivery"], (prevData) => {
-        return prevData.filter((product) => product.id !== id);
-      });
-      await axios.delete(
-        `${serverRoutes.delivery}/${id}/${creationDateMillis}`,
-        {
-          withCredentials: true,
-        },
-      );
+      try {
+        await axios.delete(
+          `${serverRoutes.delivery}/${id}/${creationDateMillis}`,
+          {
+            withCredentials: true,
+          },
+        );
+      } catch (error) {
+        throw error.response.data;
+      }
     },
     onMutate: (variables) => {
-      // Обновляем локальные данные перед отправкой запроса
-      const { id } = variables;
+      const prevBasketData = queryClient.getQueryData(["delivery"]);
+
+      const { id, creationDateMillis } = variables;
       queryClient.setQueryData(["delivery"], (prevData) => {
-        return prevData.filter((product) => product.id !== id);
+        return prevData.filter(
+          (product) =>
+            product.id !== id ||
+            product.creationDateMillis !== creationDateMillis,
+        );
       });
 
-      // Возвращаем объект для использования в onSettled
-      return { id };
+      return { prevBasketData };
     },
     onError: (error, variables, context) => {
-      // Восстанавливаем локальные данные в случае ошибки
-      const { id } = context;
-      queryClient.setQueryData(["basket"], (prevData) => {
-        return [...prevData, { id }];
-      });
+      const { prevBasketData } = context;
+      queryClient.setQueryData(["basket"], prevBasketData);
     },
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: ["delivery"] });
     },
   });
 };
-
-export const useAddProductsInDelivery = () => {
-  const queryClient = useQueryClient();
-  return useMutation({
-    mutationKey: ["delivery"],
-    mutationFn: async (productsInBasket: ProductType[]) => {
-      await axios.post(serverRoutes.delivery, productsInBasket, {
-        withCredentials: true,
-      });
-    },
-    onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ["delivery"] });
-    },
-  });
-};
-
 export const useConfirmProductFromDelivery = () => {
   const queryClient = useQueryClient();
   return useMutation({
@@ -88,38 +74,36 @@ export const useConfirmProductFromDelivery = () => {
       creationDateMillis,
       quantity,
     }: Partial<DeliveryProductType>) => {
-      // Получаем текущие данные из кеша перед удалением
-      const prevBasketData = queryClient.getQueryData(["delivery"]);
-      console.log(prevBasketData, id);
-
-      // Оптимистическое обновление: Удаляем продукт из локальных данных
-      queryClient.setQueryData(["delivery"], (prevData) => {
-        return prevData.filter((product) => product.id !== id);
-      });
-      await axios.post(
-        `${serverRoutes.confirm}/${id}`,
-        { creationDateMillis, quantity },
-        {
-          withCredentials: true,
-        },
-      );
+      try {
+        await axios.post(
+          `${serverRoutes.confirm}/${id}`,
+          { creationDateMillis, quantity },
+          {
+            withCredentials: true,
+          },
+        );
+      } catch (error) {
+        throw error.response.data;
+      }
     },
     onMutate: (variables) => {
-      // Обновляем локальные данные перед отправкой запроса
-      const { id } = variables;
+      const prevBasketData = queryClient.getQueryData(["delivery"]);
+
+      const { id, creationDateMillis } = variables;
       queryClient.setQueryData(["delivery"], (prevData) => {
-        return prevData.filter((product) => product.id !== id);
+        return prevData.filter(
+          (product) =>
+            product.id !== id ||
+            product.creationDateMillis !== creationDateMillis,
+        );
       });
 
-      // Возвращаем объект для использования в onSettled
-      return { id };
+      return { prevBasketData };
     },
     onError: (error, variables, context) => {
-      // Восстанавливаем локальные данные в случае ошибки
-      const { id } = context;
-      queryClient.setQueryData(["delivery"], (prevData) => {
-        return [...prevData, { id }];
-      });
+      const { prevBasketData } = context;
+
+      queryClient.setQueryData(["delivery"], prevBasketData);
     },
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: ["delivery"] });

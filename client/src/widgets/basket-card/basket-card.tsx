@@ -7,7 +7,6 @@ import {
   useDecreaseQuantityProductInBasket,
   useDeleteProductFromBasket,
   useIncreaseQuantityProductInBasket,
-  useUpdateCountProductInBasket,
 } from "src/services/basket-api";
 interface IBasketCardProps {
   id: string;
@@ -74,7 +73,7 @@ const BasketCard: FC<IBasketCardProps> = memo(
           />
         }
         deleteAction={
-          <DeleteButton onClick={() => deleteProductFromBasket(id)} />
+          <DeleteButton onClick={() => deleteProductFromBasket({ id })} />
         }
       />
     );

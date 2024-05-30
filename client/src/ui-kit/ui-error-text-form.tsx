@@ -13,7 +13,7 @@ export const ErrorTextForm = ({
   return (
     <div
       className={clsx(
-        "text-sm text-red-500 h-4 mt-1",
+        "text-xs sm:text-sm text-red-500 h-4 mt-1",
         isVisible ? "visible" : "invisible",
       )}
     >

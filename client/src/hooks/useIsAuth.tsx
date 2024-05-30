@@ -1,6 +1,6 @@
 import Link from "src/ui-kit/ui-link";
 import { clientRoutes } from "src/routes";
-import { useAuth } from "src/services/auth";
+import { useAuth } from "src/services/auth-api";
 import GetBackButton from "src/shared/get-back-button";
 
 const useIsAuth = () => {

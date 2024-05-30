@@ -4,9 +4,15 @@ import IconButton from "./icon-button";
 import { CiHeart } from "react-icons/ci";
 import { MouseEvent } from "react";
 
-const AddToFavoriteButton = ({ onClick }: { onClick: () => void }) => {
+const AddToFavoriteButton = ({
+  onClick,
+  left,
+}: {
+  onClick: () => void;
+  left: boolean;
+}) => {
   return (
-    <Tooltip title={"Add to Favorite"}>
+    <Tooltip title={"Add to Favorite"} left={left}>
       <IconButton
         onClick={(e) => {
           e.preventDefault();

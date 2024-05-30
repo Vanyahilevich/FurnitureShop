@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router";
 import { ErrorTextForm } from "src/ui-kit/ui-error-text-form";
 import UISubmitButton from "src/ui-kit/ui-submit-button";
-import { useLogin } from "src/services/auth";
+import { useLogin } from "src/services/auth-api";
 
 type Inputs = {
   name: string;
@@ -34,22 +34,22 @@ const LoginForm = () => {
       navigate(-1);
     }
   }, [isSuccess]);
-
+  console.log(error, formError);
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col w-96">
+    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col w-full">
       <UIFormInput
         defaultValue={"vanyahilevich@gmail.com"}
         name={"email"}
         placeholder="Enter Email"
         register={{ ...register("email") }}
-        errors={formError}
+        errors={formError || error?.message}
       />
       <UIFormInput
         defaultValue={"123"}
         name={"password"}
         placeholder="Enter Password"
         register={{ ...register("password") }}
-        errors={formError}
+        errors={formError || error}
         type="password"
       />
       <UISubmitButton

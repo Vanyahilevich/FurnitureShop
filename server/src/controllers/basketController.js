@@ -45,7 +45,7 @@ const basketController = {
       const {quantity} = req.body
       const user = req.user
       if(quantity <= 0){
-        return res.status(40).json({message: "This product SOLD OUT"})
+        return res.status(400).json({message: "This product SOLD OUT"})
       }
       const productInBasket = await basketRepository.findProductInBasket(req.db, id, user.id)
 

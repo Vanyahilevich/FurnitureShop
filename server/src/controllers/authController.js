@@ -28,14 +28,10 @@ const authController = {
   },
   login: async (req, res, next) => {
     const {email, password} = req.body
-
-    try {
+      try {
       const user = await authRepository.getUserByUserEmail(req.db, email)
-
       if (!user || user.password !== crypto.createHash('sha256').update(password).digest('hex')) {
-        const error = new Error('Wrote email or password');
-        error.status = 400;
-        return res.status(error.status).json({error: error.message});
+        return res.status(400).json({message: "Email or Password enter wrote"});
       }
       const sessionId = await authRepository.createSession(req.db, user.id)
       res.cookie("sessionId", sessionId, {
@@ -73,26 +69,50 @@ const authController = {
     await authRepository.deleteSession(req.db, req.sessionId)
     res.clearCookie("sessionId").json({message: "delete cookie"})
   },
-  upload: async (req, res) => {
-    console.log("start")
+  changeInfo: async (req, res) => {
       const user  = req.user
-      console.log("req.body", req.body)
-      console.log("req.file", req.file)
       const userInfo = req.body
-      // if (!req.file) {
-      //   return res.status(400).json({ message: 'No file uploaded' });
-      // }
-      // console.log("req.file", req.file)
+      const query = {}
+    if(userInfo.name){
+      query.name = userInfo.name
+    }
+    if(userInfo.surname){
+      query.surname = userInfo.surname
+    }
+    console.log("query", query)
+   
+    res.json({ message: 'Info changed successfully'});  
+  },
+  changeEmail: async (req, res) => {
+    const user  = req.user
+    const userInfo = req.body
+    const result = await authRepository.getUserByUserEmail(req.db, userInfo.email)
+    if (!!result) {
+      return res.status(400).json({message: 'User with this email already exists.'});
+    }
+    const query = {
+      "email" : userInfo.email
+    }
+    await authRepository.changeInfo(req.db,user.id,query)
+    const sessionId = await authRepository.createSession(req.db, user.id)
+      res.cookie("sessionId", sessionId, {
+        httpOnly: true,
+        expires: new Date(Date.now() + 3600000 * 24),
+        sameSite: 'Lax',
+        domain: 'localhost',  
+      })
+        .status(200)
+        .json({ message: 'Email changed successfully'});
+},
+  changeImage: async (req, res) => {
+      const user  = req.user
       let imagePath = null
       if(req.file){
         imagePath = "user-avatars/" + req.file.filename
       }
 
-      // const imagePath = path.join('uploads/user-avatar', req.file.filename);
-      // console.log(imagePath)
-      authRepository.changeUserInfo(req.db,user.id,userInfo,imagePath)
-      res.json({ message: 'Image uploaded successfully', imagePath });
-  
+      authRepository.changeImage(req.db, user.id, imagePath)
+      res.json({ message: 'Image uploaded successfully' });  
   }
 }
 module.exports = authController

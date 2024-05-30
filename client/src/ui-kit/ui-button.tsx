@@ -28,9 +28,9 @@ const UIButton: FC<IUIButtonProps> = ({
     "transition-color flex items-center justify-center",
     className,
     {
-      lg: "text-lg py-4 px-20 ",
-      md: "text-md py-4 px-16",
-      sm: "text-sm py-2 px-8 ",
+      lg: "text-sm py-3 px-8 sm:text-base sm:py-3 sm:px-16 md:text-lg md:py-4 md:px-20",
+      md: "text-xs py-2 px-6 sm:text-sm sm:py-2 sm:px-12 md:text-base md:py-3 md:px-12",
+      sm: "text-xs py-1 px-4 sm:text-sm sm:py-1 sm:px-6 md:text-base md:py-2 md:px-8  ",
     }[size],
     {
       details:

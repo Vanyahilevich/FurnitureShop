@@ -6,6 +6,7 @@ import {
   useDeleteProductFromDelivery,
 } from "src/services/delivery-api";
 import { useFormattedDate } from "src/hooks/useFormattedDate";
+import UIButton from "src/ui-kit/ui-button";
 
 interface IDeliveryCardProps {
   id: string;
@@ -33,6 +34,13 @@ const DeliveryCard: FC<IDeliveryCardProps> = ({
     creationDateMillis,
     deliveryDateMillis,
   );
+
+  const handleCancelDelivery = () => {
+    deleteProductFromDelivery({ id, creationDateMillis });
+  };
+  const handleConfirmDelivery = () => {
+    confirmDeliveryProduct({ id, creationDateMillis, quantity });
+  };
   return (
     <DeliveryCardLayout
       id={id}
@@ -44,13 +52,25 @@ const DeliveryCard: FC<IDeliveryCardProps> = ({
       creationDate={creationDate}
       deliveryDate={deliveryDate}
       timeDifference={timeDifference}
-      handleCancelDelivery={() => {
-        console.log(creationDateMillis);
-        deleteProductFromDelivery({ id, creationDateMillis });
-      }}
-      handleConfirmDelivery={() => {
-        confirmDeliveryProduct({ id, creationDateMillis, quantity });
-      }}
+      cancelButton={
+        <UIButton
+          onClick={handleCancelDelivery}
+          className="self-end"
+          size={"sm"}
+          variant={"add"}
+        >
+          Cancel delivery
+        </UIButton>
+      }
+      confirmButton={
+        <UIButton
+          onClick={handleConfirmDelivery}
+          size={"md"}
+          variant={"details"}
+        >
+          Confirm delivery
+        </UIButton>
+      }
     />
   );
 };

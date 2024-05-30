@@ -3,7 +3,7 @@ import { FC, ReactNode, useEffect, useState } from "react";
 import Link from "src/ui-kit/ui-link";
 import useVisibility from "src/hooks/useVisibility";
 import { clientRoutes } from "src/routes";
-import HighlightSearchText from "../highlight-search-text";
+import HighlightSearchText from "../../utils/highlight-search-text";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 
 interface ICardLayoutProps {
@@ -18,7 +18,7 @@ interface ICardLayoutProps {
   highlightSearchText: string;
 }
 
-const CardLayout: FC<ICardLayoutProps> = ({
+const ProductCardLayout: FC<ICardLayoutProps> = ({
   id,
   imageSrc,
   title,
@@ -35,10 +35,11 @@ const CardLayout: FC<ICardLayoutProps> = ({
     <div
       className="
       group/card relative  cursor-pointer
-     sm:w-[calc((100%/2)-6px)]
-     md:w-[calc((100%/2)-6px)]
-     lg:w-[calc((100%/3)-8px)]
-    "
+      w-full
+      sm:w-[calc((100%/2)-6px)]
+      md:w-[calc((100%/2)-6px)]
+      lg:w-[calc((100%/3)-8px)]
+        "
     >
       <Link to={clientRoutes.product + id}>
         <div className={clsx("relative h-56 overflow-hidden bg-[#ECECEC]")}>
@@ -99,4 +100,4 @@ const CardLayout: FC<ICardLayoutProps> = ({
   );
 };
 
-export default CardLayout;
+export default ProductCardLayout;

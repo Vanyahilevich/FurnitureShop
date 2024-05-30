@@ -1,16 +1,17 @@
 import { FC, InputHTMLAttributes } from "react";
 import clsx from "clsx";
+import useVisibility from "src/hooks/useVisibility";
 
 interface InputPropsLayout extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   name: string;
   register: any;
-  textError: string;
+  textError?: string;
+  textApprove?: string;
   className?: string;
   isDisabled: boolean;
   changeInput: () => void;
   approveInput: () => void;
-  rest: any;
 }
 
 const UIProfileInputLayout: FC<InputPropsLayout> = ({
@@ -19,13 +20,14 @@ const UIProfileInputLayout: FC<InputPropsLayout> = ({
   register,
   className,
   textError,
+  textApprove,
   isDisabled,
   changeInput,
   approveInput,
-  ...rest
 }) => {
+  const isVisibleTextApprove = useVisibility(textApprove);
   return (
-    <div className={clsx(className, "flex flex-col")}>
+    <div className={clsx(className, "flex flex-col text-sm md:text-base")}>
       <div
         className={clsx(
           "flex items-center gap-1 p-1 border rounded-sm",
@@ -42,17 +44,17 @@ const UIProfileInputLayout: FC<InputPropsLayout> = ({
           <input
             id={label}
             {...register}
-            {...rest}
+            name={name}
             disabled={isDisabled}
             className={clsx(
               className,
-              //   textError ? "text-red-500" : "text-slate-600",
               "text-slate-600",
               "focus: outline-none",
-              "w-full pr-16 ",
+              "w-full pr-20 ",
             )}
           />
           <button
+            type="button"
             className={clsx(
               "text-sm text-slate-400",
               isDisabled ? "visible" : "invisible",
@@ -63,6 +65,7 @@ const UIProfileInputLayout: FC<InputPropsLayout> = ({
             Change
           </button>
           <button
+            type="submit"
             className={clsx(
               "text-sm ",
               isDisabled ? "invisible" : "visible",
@@ -75,15 +78,21 @@ const UIProfileInputLayout: FC<InputPropsLayout> = ({
           </button>
         </div>
       </div>
-      <p
-        className={clsx(
-          "text-sm text-red-600 h-4 mb-1",
-          textError ? "visible" : "invisible",
-        )}
-        role="alert"
-      >
-        {textError}
-      </p>
+      {textApprove ? (
+        <p
+          className={clsx(
+            "text-sm text-green-500 h-4 mb-1",
+            isVisibleTextApprove ? "visible" : "invisible",
+          )}
+          role="alert"
+        >
+          {textApprove}
+        </p>
+      ) : (
+        <p className={clsx("text-sm text-red-500 h-4 mb-1")} role="alert">
+          {textError}
+        </p>
+      )}
     </div>
   );
 };

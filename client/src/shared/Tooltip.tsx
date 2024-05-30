@@ -5,10 +5,12 @@ const Tooltip = ({
   children,
   title,
   direction,
+  left,
 }: {
   children: ReactNode;
   title: string;
   direction?: "top" | "bottom";
+  left?: boolean;
 }) => {
   const mapDirection = {
     top: "bottom-full",
@@ -20,11 +22,12 @@ const Tooltip = ({
       {children}
       <div
         className={clsx(
-          `invisible text-xs absolute  my-3 left-1/2 transform
-         -translate-x-1/2 bg-gray-800 text-white py-1 px-3
+          `invisible text-xs absolute  my-3  transform
+          -translate-x-1/2 bg-gray-800 text-white py-1 px-2
           rounded whitespace-nowrap z-20
           group-hover/tooltip:visible
           `,
+          left ? "-left-full" : "left-1/2",
           mapDirection[direction || "bottom"],
         )}
       >

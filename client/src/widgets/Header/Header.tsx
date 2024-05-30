@@ -3,12 +3,10 @@ import Logo from "./logo";
 import BasketButton from "../../shared/basket-button";
 import FavoriteButton from "../../shared/favorite-button";
 import LoginButton from "src/shared/login-button";
-import ProfileButton from "src/shared/profile-button";
-import LogoutButton from "src/shared/logout-button";
 import DeliveryButton from "src/shared/delivery-button";
 import { useGetProductsFromDelivery } from "src/services/delivery-api";
 import { useGetProductsFromBasket } from "src/services/basket-api";
-import { useAuth, useLogout } from "src/services/auth";
+import { useAuth, useLogout } from "src/services/auth-api";
 import HeaderLayout from "./header-layout";
 import ProfileAvatar from "../profile-avatar/profile-avatar";
 
@@ -27,7 +25,7 @@ const Header = () => {
       }
       actions={
         <>
-          <FavoriteButton />
+          {/* <FavoriteButton /> */}
           <BasketButton badgeValue={productsFromBasket?.length} />
           <DeliveryButton badgeValue={productsFromDelivery?.length} />
         </>

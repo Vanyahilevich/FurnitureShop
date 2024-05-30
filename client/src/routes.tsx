@@ -27,23 +27,25 @@ export const serverRoutes = {
   purchase: base + "/basket/purchase",
   delivery: base + "/delivery",
   confirm: base + "/delivery/confirm",
-  upload: base + "/auth/upload",
+  changeInfo: base + "/auth/changeInfo",
+  changeImage: base + "/auth/changeImage",
+  changeEmail: base + "/auth/changeEmail",
 };
 
 import { lazy } from "react";
 import { createBrowserRouter } from "react-router-dom";
 import ErrorPage from "./pages/error-page";
 import App from "./App";
-import PTest from "./pages/PTest";
-import VTest from "./pages/VTest";
-import ProfileLayoutPage from "./pages/profile-page/profile-layout-page";
-import Product from "./pages/Product";
+import ProfileLayoutPage from "./pages/profile/profile-layout-page";
 
-const LoginPage = lazy(() => import("./pages/login-page/login-page"));
-const SignUpPage = lazy(() => import("./pages/signup-page/signup-page"));
-const ProductsPage = lazy(() => import("./pages/products-page/products-page"));
+const LoginPage = lazy(() => import("./pages/login/login-page"));
+const SignUpPage = lazy(() => import("./pages/signup/signup-page"));
+const ProductsPage = lazy(() => import("./pages/products/products-page"));
+const ProductPage = lazy(() => import("./pages/product/product-page"));
+
 const BasketPage = lazy(() => import("./pages/basket/basket-page"));
 const DeliveryPage = lazy(() => import("./pages/delivery/delivery-page"));
+const HomePageLayout = lazy(() => import("./pages/home/home-layout-page"));
 
 export const router = createBrowserRouter([
   {
@@ -51,6 +53,10 @@ export const router = createBrowserRouter([
     element: <App />,
     errorElement: <ErrorPage />,
     children: [
+      {
+        path: clientRoutes.home,
+        element: <HomePageLayout />,
+      },
       {
         path: clientRoutes.login,
         element: <LoginPage />,
@@ -65,7 +71,7 @@ export const router = createBrowserRouter([
       },
       {
         path: clientRoutes.products + "/:id",
-        element: <Product />,
+        element: <ProductPage />,
       },
       {
         path: clientRoutes.basket,
@@ -82,14 +88,6 @@ export const router = createBrowserRouter([
       {
         path: clientRoutes.profile,
         element: <ProfileLayoutPage />,
-      },
-      {
-        path: "/p",
-        element: <PTest />,
-      },
-      {
-        path: "/v",
-        element: <VTest />,
       },
     ],
   },

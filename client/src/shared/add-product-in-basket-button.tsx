@@ -2,9 +2,15 @@ import IconButton from "./icon-button";
 import Tooltip from "./tooltip";
 import { CiShoppingCart } from "react-icons/ci";
 
-const AddToBasketButton = ({ onClick }: { onClick: () => void }) => {
+const AddToBasketButton = ({
+  onClick,
+  left,
+}: {
+  onClick: () => void;
+  left: boolean;
+}) => {
   return (
-    <Tooltip title={"Add to Basket"}>
+    <Tooltip title={"Add to Basket"} left={left}>
       <IconButton
         onClick={(e) => {
           e.preventDefault();

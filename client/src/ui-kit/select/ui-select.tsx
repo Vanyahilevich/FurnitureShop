@@ -14,7 +14,7 @@ const UISelect: FC<ISelectProps> = ({ value, onChange, children }) => {
   return (
     <Listbox value={value} onChange={onChange}>
       {({ open }) => (
-        <>
+        <div className="w-full">
           <Listbox.Button className="relative w-full flex justify-between items-center py-1 text-left border-b-2 border-lightBlueHover sm:text-sm">
             {value}
             <SlArrowRight
@@ -32,9 +32,9 @@ const UISelect: FC<ISelectProps> = ({ value, onChange, children }) => {
             leaveFrom="transform scale-100 opacity-100"
             leaveTo="transform scale-95 opacity-0"
           >
-            <Listbox.Options>{children}</Listbox.Options>
+            <Listbox.Options className="mt-2">{children}</Listbox.Options>
           </Transition>
-        </>
+        </div>
       )}
     </Listbox>
   );

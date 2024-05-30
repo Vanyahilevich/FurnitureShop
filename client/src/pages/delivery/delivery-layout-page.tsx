@@ -1,5 +1,4 @@
 import React, { ReactNode } from "react";
-import DeliveryListSkeleton from "src/widgets/delivery-card/delivery-card-skeleton";
 
 const DeliveryLayoutPage = ({ children }: { children: ReactNode }) => {
   return (

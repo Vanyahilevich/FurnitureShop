@@ -13,10 +13,12 @@ export const useFormattedDate = (
     start: new Date().getTime(),
     end: deliveryDateMillis,
   });
-  const timeDifference = formatDuration(durationObject, {
-    format: ["days", "hours"],
-  });
-
+  let timeDifference;
+  if (deliveryDateMillis - new Date().getTime() > 0) {
+    timeDifference = formatDuration(durationObject, {
+      format: ["days", "hours"],
+    });
+  }
   const creationDate = format(creationDateMillis, "d MMMM yyyy");
   const deliveryDate = format(deliveryDateMillis, "d MMMM yyyy");
   return {

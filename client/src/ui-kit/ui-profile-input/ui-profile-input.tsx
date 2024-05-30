@@ -5,7 +5,6 @@ import React, {
   useRef,
   useState,
 } from "react";
-import clsx from "clsx";
 import UIProfileInputLayout from "./ui-profile-input-layout";
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
@@ -14,6 +13,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   register: any;
   errors: any;
   className?: string;
+  isServerError?: string;
   setFocus: (name: "name" | "surname" | "email") => void;
 }
 
@@ -24,6 +24,7 @@ const UIProfileInput: FC<InputProps> = ({
   className,
   errors,
   setFocus,
+  isServerError,
   ...rest
 }) => {
   const [isDisabled, setIsDisabled] = useState(true);
@@ -43,7 +44,7 @@ const UIProfileInput: FC<InputProps> = ({
       rest={rest}
       name={name}
       register={register}
-      textError={errors[name]?.message}
+      textError={errors[name]?.message || isServerError}
       isDisabled={isDisabled}
       changeInput={() => setIsDisabled(false)}
       approveInput={approveInput}

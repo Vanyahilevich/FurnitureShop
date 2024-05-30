@@ -28,9 +28,9 @@ const UIFormInput: FC<InputProps> = ({
   ...rest
 }) => {
   return (
-    <div className={clsx(className)}>
+    <div className={clsx(className, "w-full text-sm sm:text-base")}>
       {label && (
-        <label htmlFor={label} className="text-md text-slate-600">
+        <label htmlFor={label} className="text-sm text-slate-600">
           {label}
         </label>
       )}

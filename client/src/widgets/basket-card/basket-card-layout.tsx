@@ -29,13 +29,18 @@ const BasketCardLayout: FC<IBasketCardProps> = ({
   return (
     <div
       className="group/basketCard  transition-all 
-      relative flex flex-auto w-full gap-10 text-lg max-h-40 items-center"
+      relative flex w-full 
+      flex-col items-center
+      text-sm  gap-2 pb-5
+      md:max-h-40 md: md:flex-row md:pb-0 md:text-base md:gap-4
+       lg:text-lg lg:gap-10
+       "
     >
-      <div className="w-60 h-full overflow-hidden bg-[#ebebeb]">
+      <div className="w-full md:max-w-60 h-40 overflow-hidden bg-[#ebebeb]">
         <Link to={clientRoutes.product + id}>
-          <div className="w-full  h-full  bg-slate-300 cursor-pointer">
+          <div className="w-full h-full   bg-slate-300 cursor-pointer">
             <img
-              className="text-sm w-full  h-full  object-cover object-center "
+              className="w-full h-full   object-cover object-center "
               src={imageSrc}
               alt={name}
             />
@@ -45,27 +50,30 @@ const BasketCardLayout: FC<IBasketCardProps> = ({
 
       <Link
         to={clientRoutes.product + id}
-        className=" flex-auto text-wrap cursor-pointer"
+        className="flex-auto  text-wrap cursor-pointer 
+        self-start md:self-auto"
       >
-        <div>{name}</div>
+        <div className="break-words">{name}</div>
       </Link>
-      <div className="min-w-24 text-left">
-        {currency} {price}
+      <div className="relative flex gap-2 self-end  md:self-auto">
+        <div className="min-w-24 text-left">
+          {currency} {price}
+        </div>
+        <div className="flex gap-2  w-16 items-center justify-center">
+          {conter}
+        </div>
+        <div className="min-w-28 text-right">{totalPrice}</div>
+        <div
+          className={clsx(
+            "text-sm absolute top-8 right-0 text-red-400 transition-all",
+            isVisible ? "visible" : "invisible",
+          )}
+        >
+          {errorText}
+        </div>
       </div>
-      <div className="flex gap-2  w-16 items-center justify-center">
-        {conter}
-      </div>
-      <div className="min-w-28 text-right">{totalPrice}</div>
       <div className="absolute top-0 right-0  opacity-0  transition-all group-hover/basketCard:opacity-100 ">
         {deleteAction}
-      </div>
-      <div
-        className={clsx(
-          "text-sm absolute bottom-10 right-0 text-red-400 transition-all",
-          isVisible ? "visible" : "invisible",
-        )}
-      >
-        {errorText}
       </div>
     </div>
   );

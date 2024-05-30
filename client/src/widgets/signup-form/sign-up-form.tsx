@@ -9,7 +9,7 @@ import { ErrorTextForm } from "../../ui-kit/ui-error-text-form";
 import { useEffect } from "react";
 import { redirect, useNavigate } from "react-router-dom";
 import UISubmitButton from "src/ui-kit/ui-submit-button";
-import { useSignUp } from "src/services/auth";
+import { useSignUp } from "src/services/auth-api";
 
 type Inputs = {
   name: string;
@@ -39,7 +39,7 @@ const SignUpForm = () => {
     }
   }, [isSuccess]);
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col w-96">
+    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
       <UIFormInput
         defaultValue={"Ivan"}
         name={"name"}
