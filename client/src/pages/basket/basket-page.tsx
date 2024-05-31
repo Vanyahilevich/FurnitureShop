@@ -8,10 +8,12 @@ import UIButton from "src/ui-kit/ui-button";
 import BasketCard from "src/widgets/basket-card/basket-card";
 import EmptyContentBasket from "./empty-content-basket";
 import BasketLayoutPage from "./basket-layout-page";
-import { serverRoutes } from "src/routes";
+import { clientRoutes, serverRoutes } from "src/routes";
 import BasketListSkeleton from "src/widgets/basket-card/basket-card-skeleton";
+import { useNavigate } from "react-router-dom";
 
 const BasketPage = () => {
+  const navigate = useNavigate();
   const {
     isAuthenticated,
     authJSX,
@@ -27,6 +29,17 @@ const BasketPage = () => {
     useDeleteAllProductsFromBasket();
   const { mutate: purchaseProducts } = usePurchaseProducts();
 
+  const handlePurchaseProduct = () => {
+    purchaseProducts(
+      { productsFromBasket },
+      {
+        onSuccess: () => {
+          navigate(clientRoutes.delivery);
+        },
+      },
+    );
+  };
+
   const emptyBasket = !authIsLoading && productsFromBasket?.length === 0;
 
   if (!isAuthenticated) {
@@ -41,9 +54,6 @@ const BasketPage = () => {
     }, 0)
     .toFixed(2);
 
-  const handlePurchaseProduct = () => {
-    purchaseProducts({ productsFromBasket });
-  };
   return (
     <BasketLayoutPage
       products={

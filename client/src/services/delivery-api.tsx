@@ -27,15 +27,18 @@ export const useDeleteProductFromDelivery = () => {
     mutationFn: async ({
       id,
       creationDateMillis,
+      quantity,
     }: {
       id: string;
       creationDateMillis: number;
+      quantity: number;
     }) => {
       try {
         await axios.delete(
           `${serverRoutes.delivery}/${id}/${creationDateMillis}`,
           {
             withCredentials: true,
+            data: { quantity },
           },
         );
       } catch (error) {

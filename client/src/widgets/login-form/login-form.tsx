@@ -16,7 +16,7 @@ type Inputs = {
   confirmPassword: string;
 };
 
-const LoginForm = () => {
+const LoginForm = ({ callback }: { callback?: () => void }) => {
   const {
     register,
     handleSubmit,
@@ -24,14 +24,13 @@ const LoginForm = () => {
   } = useForm({
     resolver: yupResolver(schema),
   });
-  const navigate = useNavigate();
   const { mutate: login, isSuccess, isPending, error } = useLogin();
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     login(data);
   };
   useEffect(() => {
-    if (isSuccess) {
-      navigate(-1);
+    if (isSuccess && callback) {
+      callback();
     }
   }, [isSuccess]);
   console.log(error, formError);

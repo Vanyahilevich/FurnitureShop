@@ -62,6 +62,16 @@ const productsRepository = {
       }
     )
   },
+  addProduct: async (db, productId, quantity) => {
+    return await db.collection(productsRepository.dbName).updateOne(
+      {
+        id: productId,
+      }, {
+        $inc: {"quantity": quantity}
+      }
+    )
+  }
+
 
 }
 module.exports = productsRepository
