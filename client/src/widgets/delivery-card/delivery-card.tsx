@@ -36,7 +36,7 @@ const DeliveryCard: FC<IDeliveryCardProps> = ({
   );
 
   const handleCancelDelivery = () => {
-    deleteProductFromDelivery({ id, creationDateMillis });
+    deleteProductFromDelivery({ id, creationDateMillis, quantity });
   };
   const handleConfirmDelivery = () => {
     confirmDeliveryProduct({ id, creationDateMillis, quantity });

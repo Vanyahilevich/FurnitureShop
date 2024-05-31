@@ -13,7 +13,7 @@ const HeaderLayout: FC<IHeaderLayoutProps> = ({
   auth,
 }) => {
   return (
-    <div className="py-4 flex items-center">
+    <div className="py-4 flex items-center h-[72px]">
       {logo}
       <div className="flex ml-auto items-center gap-2 text-sm md:text-base">
         {links}

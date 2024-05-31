@@ -42,7 +42,7 @@ const DeliveryPage = () => {
           }) => {
             return (
               <DeliveryCard
-                key={name}
+                key={creationDateMillis}
                 id={id}
                 name={name}
                 price={price}

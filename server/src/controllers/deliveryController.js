@@ -49,12 +49,13 @@ const deliveryController = {
     // }
   },
 
-  deleteProductFromDelivery: async (req, res, next) => {
-    
+  deleteProductFromDelivery: async (req, res, next) => {    
     try {
       const {id:productId, creationDateMillis} = req.params
+      const {quantity} = req.body
       const user = req.user
       await deliveryRepository.deleteProductInDelivery(req.db, user.id, productId, creationDateMillis)
+      await productsRepository.addProduct(req.db,productId, quantity)
       res.status(200).json({})
     } catch (error) {
       next(error)

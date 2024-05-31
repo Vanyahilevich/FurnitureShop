@@ -137,7 +137,11 @@ const basketController = {
           "creationDateMillis": creationDateMillis,
           "deliveryDateMillis": deliveryDateMillis,
         }
-        return deliveryRepository.addNewProductToDelivery(req.db, user.id, productInfo)
+        return Promise.all([
+          deliveryRepository.addNewProductToDelivery(req.db, user.id, productInfo),
+          productsRepository.deleteProduct(req.db, product.id, product.quantity)
+      ]);
+
       }))
       await basketRepository.deleteAllProductFromBasket(req.db, user.id)
       res.status(200).json({message: "Good"})
