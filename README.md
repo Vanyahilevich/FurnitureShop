@@ -11,10 +11,12 @@
 ### Launch application
 ## Backend (Node.js | Express | MongoDB)
 - cd server
+- npm install
 - npm run seed
 - npm start
 
 ## Frontend (React)
 - cd client
+- npm install
 - npm run dev
 - open http://localhost:5173 to view it in the browser.
