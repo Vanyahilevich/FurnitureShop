@@ -17,4 +17,4 @@
 ## Frontend (React)
 - cd client
 - npm run dev
-- open http://localhost:8000 to view it in the browser.
+- open http://localhost:5173 to view it in the browser.
