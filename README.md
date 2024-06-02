@@ -10,7 +10,7 @@
 
 ## Backend (Node.js | Express | MongoDB)
 - cd server
-- npm seed
+- npm run seed
 - npm start
 
 ## Frontend (React)
